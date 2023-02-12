@@ -10,10 +10,13 @@
 import java.util.ArrayList;
 public class Game {
     private ArrayList<Card> crib =new ArrayList();
+   
     
     
-    
-    public static void round(){
+    public static void round(Player x, Player y){
+        if(x.getDealer()==y.getDealer()){
+            y.setDealer();
+        }
         
     }
     
