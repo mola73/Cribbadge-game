@@ -25,14 +25,13 @@ public class Card {
 
     private Card(int i) {//Make an array of all 52 cards and pick 1 with i, then assign it to the attributes being created
  ArrayList<Card> deck = new ArrayList();
- Rank[] rands= Rank.values();
- Suit[] randss=Suit.values();
- for(int x=0;x<4;x++){
-     for(int j=0;j<rands.length;j++){
-          
-         deck.add(new Card(rands[j],randss[i]));
-     }
- }
+ Rank[] r= Rank.values();
+ Suit[] s=Suit.values();
+        for (Suit x  : s) {
+            for (Rank y: r) {
+                deck.add(new Card(y, x));
+            }  
+        }
         if (i >= 0 && i <= 52) {
             this.cardrank = deck.get(i).getRank();
             this.cardsuit = deck.get(i).getSuit();

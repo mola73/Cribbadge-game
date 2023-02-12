@@ -19,6 +19,7 @@ private boolean dealer;
 private boolean pone;
 private ArrayList <Card> cards;
 private ArrayList <Card> crib ;
+private ArrayList<Card> cribpick;
 
 
 private ArrayList<Card> makeCards(){
@@ -34,10 +35,27 @@ public static boolean rupone(){
      int x=ran.nextInt(2);
      return x==1;
      }
- public final ArrayList<Card> makeCrib(ArrayList<Card> cribpick){
-        
-        for(Card x: cribpick){
-            crib.add(x);
+ 
+public Player(){//How to make only one palyer a dealer
+    this.playpegcount=0;
+   this.showpegcount=0;
+    this.score=0;
+    this.pone=rupone();
+    this.dealer=!rupone();
+    this.cards=makeCards();
+    this.cribpick= this.provCrib();
+    if(dealer){
+        this.crib=null; 
+
+    }
+}
+
+public final ArrayList<Card> makeCrib(Player opponent){//method called by dealer to create crib(2 from pone in parmater and 2 from dealerattributes)
+        for(Card y: this.cribpick){
+            this.crib.add(y);
+        }
+        for(Card x: opponent.cribpick){
+          this.crib.add(x);
         }
         
         
@@ -46,24 +64,13 @@ public static boolean rupone(){
         //those two cards are passed to the the make crib() and added to the crib arraylist
         //the arrayList is given to the player constructor of the player who is a dealer.
     }
-public Player(){
-    this.playpegcount=0;
-   this.showpegcount=0;
-    this.score=0;
-    this.pone=rupone();
-    this.dealer=!rupone();
-    this.cards=makeCards();
-    if(dealer){
-        this.crib=makeCrib(provCrib());;
-    }else{
-        this.makeCrib(provCrib());
-    }
-}
+    
+
 public final ArrayList<Card> provCrib(){
     Scanner read1= new Scanner(System.in);
      ArrayList<Card> picked= new ArrayList();
     while (picked.size()<2){
-    System.out.println("Please pick a card to put in the crib, 1 for the 1st card and 2 for the second card...");
+    System.out.printf("OH %s, Please pick a card to put in the crib, 1 for the 1st card and 2 for the second card...\n",this.getStatus());
     System.out.println(this.cards);
     int pick= read1.nextInt();
    while(pick<1){
@@ -104,10 +111,16 @@ public boolean getPone(){
      }
      else return null;
  }
+ public String getStatus(){
+     if(this.dealer){
+     return "Dealer";
+     }else
+         return "PONE";
+ }
 
 @Override
 public String toString(){
-    return String.format("playpegcount: %d \n showpegcount:%d \n score: %d \n dealer:%b \n pone: %b\n  cards: %s\n crib : %s",getPPC(),getSPC(), getScore(),getDealer(),getPone(), getCards(),getCrib());
+    return String.format("%s \nPlaypegcount: %d \n Showpegcount:%d \n Score: %d \n Dealer:%b \n Pone: %b\n Cards: %s\n Crib : %s",getStatus(),getPPC(),getSPC(), getScore(),getDealer(),getPone(), getCards(),getCrib());
 }
 
 }
