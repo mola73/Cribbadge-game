@@ -42,8 +42,8 @@ public class Player {
         this.playpegcount = 0;
         this.showpegcount = 0;
         this.score = 0;
-        this.pone = rupone();
-        this.dealer = !rupone();
+        this.pone = false;// will be made at the beggining of the game
+        this.dealer = false;// will be made at the beggining of the game
         this.cards = makeCards();
         this.cribpick = this.provCrib();
         if (dealer) {
