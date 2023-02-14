@@ -38,6 +38,7 @@ public class Player {
     }
 
     public Player() {//How to make only one palyer a dealer
+       // flip a coin ,pick a card then assign dealer.
         this.playpegcount = 0;
         this.showpegcount = 0;
         this.score = 0;

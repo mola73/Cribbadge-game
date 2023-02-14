@@ -12,15 +12,20 @@ import java.util.ArrayList;
  */
 
 public class Deck {
-    public static void main (String[] args){
-        ArrayList<Card> deck = new ArrayList();
-        Rank[] rands= Rank.values();
+    public final ArrayList<Card> deck = new ArrayList();
+    public Deck(){
+          Rank[] rands= Rank.values();
  Suit[] randss=Suit.values();
  for(int x=0;x<4;x++){
      for(int j=0;j<rands.length;j++){
           
-         deck.add(new Card(rands[j],randss[i]));
+         deck.add(Card.getCard(rands[j],randss[x]));
      }
  }
+    }
+    public static void main (String[] args){
+        
+      Deck a= new Deck();
+      System.out.println(a.deck);
     }
 }

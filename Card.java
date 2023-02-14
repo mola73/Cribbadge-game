@@ -13,7 +13,7 @@
 import java.util.ArrayList;
 
 public class Card {
-
+Deck deck=new Deck();
     ArrayList cards = new ArrayList();
     private Rank cardrank;
     private Suit cardsuit;
@@ -24,32 +24,15 @@ public class Card {
     }
 
     private Card(int i) {//Make an array of all 52 cards and pick 1 with i, then assign it to the attributes being created
- ArrayList<Card> deck = new ArrayList();
- Rank[] r= Rank.values();
- Suit[] s=Suit.values();
-        for (Suit x  : s) {
-            for (Rank y: r) {
-                deck.add(new Card(y, x));
-            }  
-        }
+
+       
         if (i >= 0 && i <= 52) {
-            this.cardrank = deck.get(i).getRank();
-            this.cardsuit = deck.get(i).getSuit();
+            this.cardrank = deck.deck.get(i).getRank();
+            this.cardsuit = deck.deck.get(i).getSuit();
         }
     }
     
-    public static ArrayList<Card> getDeck(){// how do i make a deck in a class?
-         ArrayList<Card> deck = new ArrayList();
- Rank[] ranks= Rank.values();
- Suit[] suits=Suit.values();
- for(int x=0;x<4;x++){
-     for(int j=0;j<ranks.length;j++){
-          
-         deck.add(new Card(ranks[j],suits[x]));
-     }
- }
- return deck;
-    }
+   
 
     public static Card getCard(Rank r, Suit s) { // public static mhtods for Constructors
         return new Card(r, s);
@@ -191,7 +174,7 @@ public class Card {
 //
     @Override
     public String toString() {// How do i print a rank and suit type. %...  %...
-        return String.format("%s of %s", this.getRank(), symbol(this.getSuit()));
+       return String.format("%s of %s", this.getRank(), this.getSuit());//symbol(this.getSuit())
     }
 
 }
