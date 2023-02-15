@@ -35,9 +35,26 @@ public class Score {
         return point;
     }
     
-    private int equalCards(){
-        return 1;
+   private int pairsPlay(Player player1){
+       int point = 0, count = 0;
+        for(Card c: player1.getCards()){
+            for(Card c2: player1.getCards()){
+                if(player1.getCards().indexOf(c) == player1.getCards().indexOf(c2)){
+                   count++;
+                }
+            }
+        }
+        switch(count){
+            case 1: point+=2;
+            break;
+            case 2: point+=6;
+            break;
+            case 3: point+=12;
+            break;
+        }
+        return point;
     }
+    
     
     
 }
