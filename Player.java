@@ -21,6 +21,7 @@ public class Player {
     private ArrayList<Card> cards;
     private ArrayList<Card> crib;
     private ArrayList<Card> cribpick;
+    private boolean human;
 
     private ArrayList<Card> makeCards() {
         Random ran = new Random();
@@ -37,66 +38,70 @@ public class Player {
         return x == 1;
     }
 
-    public Player() {//How to make only one palyer a dealer
-       // flip a coin ,pick a card then assign dealer.
+    public Player(String state) {
+        this.human = state.equals("H");
         this.playpegcount = 0;
         this.showpegcount = 0;
         this.score = 0;
         this.pone = false;// will be made at the beggining of the game
         this.dealer = false;// will be made at the beggining of the game
         this.cards = makeCards();
-        this.cribpick = this.provCrib();
+        this.cribpick = null;
         if (dealer) {
             this.crib = null;
 
         }
     }
 
-    public final ArrayList<Card> makeCrib(Player opponent) {//method called by dealer to create crib(2 from pone in parmater and 2 from dealerattributes)
-        for (Card y : this.cribpick) {
-            this.crib.add(y);
-        }
-        for (Card x : opponent.cribpick) {
-            this.crib.add(x);
+    public String ruHuman() {
+        if (this.human) {
+            return "Human";
+        } else {
+            return "CPU";
         }
 
-        return crib;
-        // allow each player to pick two cards form their deck
-        //those two cards are passed to the the make crib() and added to the crib arraylist
-        //the arrayList is given to the player constructor of the player who is a dealer.
     }
 
-    public final ArrayList<Card> provCrib() {
-        Scanner read1 = new Scanner(System.in);
-        ArrayList<Card> picked = new ArrayList();
-        while (picked.size() < 2) {
-            System.out.printf("OH %s, Please pick a card to put in the crib, 1 for the 1st card and 2 for the second card...\n", this.getStatus());
-            System.out.println(this.cards);
-            int pick = read1.nextInt();
-            while (pick < 1) {
-                System.out.println("Invalid number");
-                System.out.println(this.cards);
-                pick = read1.nextInt();
-            }
-            picked.add(this.cards.get(pick - 1));
-            this.cards.remove(pick - 1);
-            System.out.println(this.cards);
+    public boolean ruDealer() {
+        return this.dealer;
+    }
+
+    public ArrayList<Card> getcribPick() {
+        return this.cribpick;
+    }
+
+    public final void makeCrib(Player pone) {//method called by dealer to create crib(2 from pone in parmater and 2 from dealerattributes)
+
+        ArrayList<Card> pick1 = this.getcribPick();
+        ArrayList<Card> pick2 = pone.getcribPick();
+        for (Card y : pick1) {
+
+            this.getCrib().add(y);
         }
-        return picked;
+
+        for (Card x : pick2) {
+
+            this.getCrib().add(x);
+        }
+        System.out.printf("%s \n the crib is set", this.getCrib());
     }
-    public void setPPC(int playnum){//score of show after each round
-        this.playpegcount= this.playpegcount+ playnum;
+
+    public void setPPC(int playnum) {//score of show after each round
+        this.playpegcount = this.playpegcount + playnum;
     }
-    public void setSPC(int shownum){ //score of show after each round
-        this.showpegcount=this.showpegcount+ shownum;
+
+    public void setSPC(int shownum) { //score of show after each round
+        this.showpegcount = this.showpegcount + shownum;
     }
-    public void setScore(int mostpoints){// the total score of each player to 121
-        this.score=this.score+ mostpoints;
+
+    public void setScore(int mostpoints) {// the total score of each player to 121
+        this.score = this.score + mostpoints;
     }
-    public void setDealer(){
-        this.dealer=!this.dealer;
+
+    public void setDealer(boolean dealer) {
+        this.dealer = dealer;
+        this.pone = !dealer;
     }
-    
 
     public int getPPC() {
         return this.playpegcount;
@@ -123,41 +128,52 @@ public class Player {
         return this.cards;
     }
 
-    public ArrayList<Card> getCrib() {
+    public void setCrib(ArrayList crib) {
         if (this.dealer) {
-            return this.crib;
-        } else {
-            return null;
+            this.crib = crib;
         }
     }
 
+    public ArrayList<Card> getCrib() {
+
+        return this.crib;
+
+    }
+
     public String getStatus() {
+        if ((this.dealer == false) && (this.pone == false)) {
+
+            return "none";
+        }
+
         if (this.dealer) {
             return "Dealer";
         } else {
             return "PONE";
         }
+
     }
-    public void roundreset(int scoreadd){//add peg movement, remake crib at the beggining of the round seperately.
-        this.playpegcount=0;
-    this.showpegcount=0;
-    this.setScore(scoreadd);
-    this.dealer=!this.dealer;
-    this.pone=!pone;
-    this.cards.clear();
-    this.cards=this.makeCards();
-    this.cribpick.clear();
-    this.provCrib();
-    if(dealer){
-        this.crib.clear();
-       
-    }
-   
+
+    public void roundreset(int scoreadd) {//add peg movement, remake crib at the beggining of the round seperately.
+        this.playpegcount = 0;
+        this.showpegcount = 0;
+        this.setScore(scoreadd);
+        this.dealer = !this.dealer;
+        this.pone = !pone;
+        this.cards.clear();
+        this.cards = this.makeCards();
+        this.cribpick.clear();
+        //this.provCrib();
+        if (dealer) {
+            this.crib.clear();
+
+        }
+
     }
 
     @Override
     public String toString() {
-        return String.format("%s \nPlaypegcount: %d \n Showpegcount:%d \n Score: %d \n Dealer:%b \n Pone: %b\n Cards: %s\n Crib : %s", getStatus(), getPPC(), getSPC(), getScore(), getDealer(), getPone(), getCards(), getCrib());
+        return String.format(" %s \n %s \nPlaypegcount: %d \n Showpegcount:%d \n Score: %d \n Dealer:%b \n Pone: %b\n Cards: %s\n Crib : %s\n\n", ruHuman(), getStatus(), getPPC(), getSPC(), getScore(), getDealer(), getPone(), getCards(), getCrib());
     }
 
 }

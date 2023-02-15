@@ -13,7 +13,7 @@
 import java.util.ArrayList;
 
 public class Card {
-Deck deck=new Deck();
+
     ArrayList cards = new ArrayList();
     private Rank cardrank;
     private Suit cardsuit;
@@ -24,14 +24,24 @@ Deck deck=new Deck();
     }
 
     private Card(int i) {//Make an array of all 52 cards and pick 1 with i, then assign it to the attributes being created
-
+ 
        
         if (i >= 0 && i <= 52) {
-            this.cardrank = deck.deck.get(i).getRank();
-            this.cardsuit = deck.deck.get(i).getSuit();
+            this.cardrank = getDeck().get(i).getRank();
+            this.cardsuit = getDeck().get(i).getSuit();
         }
     }
-    
+    public static final ArrayList<Card> getDeck(){
+        ArrayList<Card> fill=new ArrayList();
+ Rank[] rank= Rank.values();
+ Suit[] suit=Suit.values();
+        for (Rank rank1 : rank) {
+            for (Suit suit1 : suit) {
+                fill.add(Card.getCard(rank1, suit1));
+            }
+        }
+ return fill;
+    }
    
 
     public static Card getCard(Rank r, Suit s) { // public static mhtods for Constructors
