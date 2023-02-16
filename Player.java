@@ -59,11 +59,19 @@ public class Player {
         } else {
             return "CPU";
         }
-
+    }
+    
+    public boolean ruHumanb(){
+        return this.human;
+        
     }
 
     public boolean ruDealer() {
         return this.dealer;
+    }
+    public  void flipDealer(){
+        this.dealer=!this.dealer;
+        this.pone=!this.pone;
     }
 
     public ArrayList<Card> getcribPick() {
