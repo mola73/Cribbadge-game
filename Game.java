@@ -176,9 +176,12 @@ public class Game {
         pickDealer(a, b);
         System.out.println(a);
         System.out.println(b);
-        flipDealer(a, b);
-        System.out.println(a);
-        System.out.println(b);
+        // shffle, deal, make the crib, cut deck of non dealer
+       // front peg back peg
+       /*
+       Game board object
+       
+       */
 
     }
 }
