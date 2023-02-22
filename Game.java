@@ -27,7 +27,7 @@ public class Game {
         int pick2 = rand.nextInt(52) + 1;
         Card p1pick = Card.getCard(pick1);
         Card cpupick = Card.getCard(pick2);
-        boolean hdealer = (p1pick.getRank().count() > cpupick.getRank().count());
+        boolean hdealer = (p1pick.getRank().count() < cpupick.getRank().count());
         human.setDealer(hdealer);
         cpu.setDealer(!hdealer);
 

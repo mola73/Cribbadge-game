@@ -135,6 +135,9 @@ public class Player {
     public ArrayList<Card> getCards() {
         return this.cards;
     }
+     public void setCards(Card x) {
+        this.cards.add(x);
+    }
 
     public void setCrib(ArrayList crib) {
         if (this.dealer) {
