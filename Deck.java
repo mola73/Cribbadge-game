@@ -56,7 +56,9 @@ Random rand= new Random();
          for(int j= 6;j<12;j++){
             human.setCards(this.deck.get(j));
     }
-    
+    }
+         
+    @Override
     public String toString(){
         return String.format("%s",this.deck);
     }
