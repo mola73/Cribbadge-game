@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.score;
+
 
 import java.util.ArrayList;
 
@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * @author mpereira
  */
 public class Crib {
-    private ArrayList<Card> crib;
+    private ArrayList<Card> crib=new ArrayList();
 
     
     public Crib(Player human, Player cpu) {//method called by dealer to create crib(2 from pone in parmater and 2 from dealerattributes)
@@ -29,9 +29,12 @@ public class Crib {
     
     }
     
-    public void assignCrib(Player dealer){
-        if(dealer.ruDealer()){
-            dealer.setCrib(this.crib);
+    public void assignCrib(Player human, Player cpu){
+        if(human.ruDealer()){
+            human.setCrib(this.crib);
+        }
+        if(cpu.ruDealer()){
+            cpu.setCrib(this.crib);
         }
     }
     

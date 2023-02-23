@@ -50,12 +50,17 @@ Random rand= new Random();
        }
         
     public void dealCards(Player human,Player CPU){//finish this
+        ArrayList<Card> humancard= new ArrayList();
+        ArrayList<Card> cpucard= new ArrayList();
         for(int i= 0;i<6;i++){
-            human.setCards(this.deck.get(i));
+          humancard.add(this.deck.get(i));
     }
+        human.setCards(humancard);
+        
          for(int j= 6;j<12;j++){
-            human.setCards(this.deck.get(j));
-    }
+           cpucard.add(this.deck.get(j));
+    } 
+         CPU.setCards(cpucard);
     }
          
     @Override

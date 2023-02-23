@@ -45,7 +45,7 @@ public class Player {
         this.score = 0;
         this.pone = false;// will be made at the beggining of the game
         this.dealer = false;// will be made at the beggining of the game
-        this.cards = makeCards();
+        this.cards = null;
         this.cribpick = null;
         if (dealer) {
             this.crib = null;
@@ -76,6 +76,10 @@ public class Player {
 
     public ArrayList<Card> getcribPick() {
         return this.cribpick;
+    }
+    
+    public void setCribPick(ArrayList cribpick){
+        this.cribpick= cribpick;
     }
 
     public final void makeCrib(Player pone) {//method called by dealer to create crib(2 from pone in parmater and 2 from dealerattributes)
@@ -135,8 +139,8 @@ public class Player {
     public ArrayList<Card> getCards() {
         return this.cards;
     }
-     public void setCards(Card x) {
-        this.cards.add(x);
+     public void setCards(ArrayList x) {
+        this.cards=x;
     }
 
     public void setCrib(ArrayList crib) {
