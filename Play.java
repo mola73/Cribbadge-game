@@ -5,7 +5,7 @@
  */
 
 
-import static com.mycompany.score.Card.getCard;
+//import static com.mycompany.score.Card.getCard;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
@@ -81,8 +81,9 @@ public class Play {
     }
 
     public static int pair(ArrayList<Card> c1) {
-
-        if (c1.get(count) == c1.get(count + 1)) {
+if(c1.size()>=2){
+        if (c1.get(count).getRank() == c1.get(count + 1).getRank()) {
+            System.out.println(c1.get(count).getRank() +"  " + c1.get(count + 1).getRank());
             count++;
             return 2;
 
@@ -90,14 +91,18 @@ public class Play {
         count++;
         return 0;
     }
+return 0;
+    }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) {// IT WORKS
         ArrayList<Card> card1 = new ArrayList();
         Random rnd = new Random();
         for (int i = 0; i < 4; i++) {
-            card1.add(getCard(rnd.nextInt(52)));
+            card1.add(Card.getCard(rnd.nextInt(52)));
+            System.out.println(card1);
+               System.out.println(pair(card1));
         }
-        System.out.println(card1);
-        System.out.println(pair(card1));
+        
+     
     }
 }
