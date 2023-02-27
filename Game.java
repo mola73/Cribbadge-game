@@ -1,4 +1,3 @@
-
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -39,6 +38,7 @@ public class Game {
 //        }
 //
 //    }
+
 //    public static final ArrayList<Card> provCrib(Player x) {//provides 2 cards from a player for the crib
 //        int pick;
 //        Random rand = new Random();
@@ -76,6 +76,7 @@ public class Game {
 //
 //        return picked;
 //    }
+
     public static void flipDealer(Player human, Player cpu) {
         human.flipDealer();
         cpu.flipDealer();
@@ -96,59 +97,62 @@ public class Game {
 //        }
 //        return crib;
 //    }
+
 //    public static void round(){
 //        
 //    }
 //    
     public static void play(Player human, Player cpu) {
-
-        Random rand = new Random();
+        
+        Random rand= new Random();
         Scanner sc = new Scanner(System.in);
         ArrayList<Card> hcards = human.getCards();
         ArrayList<Card> cpucards = cpu.getCards();
         ArrayList<Card> play = new ArrayList();
-        int tnumb = 2;
-        int cpick = 0;
-
-        Player x = human;
+       int tnumb = 2;
+       int cpick=0;
+        
+        Player x= human;
         if (!human.ruDealer()) {
             x = human;
         } else {
             if (!human.ruDealer()) {
-                x = cpu;
+               x = cpu;
             }
 
         }
 
         System.out.println("THE    ROUND    BEGINSSSS");
         while (hcards.isEmpty() && (cpucards.isEmpty())) { //while all the card of both players are not used
-            if (tnumb % 2 == 0) {
-                if (human.ruDealer()) {
-                    x = human;
-                } else {
-                    x = cpu;
+            if(tnumb%2==0){
+                if(human.ruDealer()){
+                    x=human;
+                }else{
+                    x=cpu;
                 }
-                if (tnumb % 2 != 0) {
-                    if (human.ruDealer()) {
-                        x = human;
-                    } else {
-                        x = cpu;
-                    }
-
-                    System.out.printf("%s  %s please put one card down 1st card=1, 2nd card=2.....", x.getStatus(), x.ruHuman());
-                    System.out.printf("%s \n\n", x.getCards());
-                    if (x.ruHumanb()) {
-                        cpick = sc.nextInt();
-                    }
-                    if (!x.ruHumanb()) {
-                        cpick = rand.nextInt(x.getCards().size() + 1);
-                    }
-                    play.add(x.getCards().get(cpick - 1));
-                    tnumb++;
+                if(tnumb%2!=0){
+                if(human.ruDealer()){
+                    x=human;
+                }else{
+                    x=cpu;
                 }
-                System.out.println(play);
+               
+            
+        System.out.printf("%s  %s please put one card down 1st card=1, 2nd card=2.....",x.getStatus(),x.ruHuman());
+        System.out.printf("%s \n\n", x.getCards());
+        if(x.ruHumanb()){
+         cpick= sc.nextInt();
+        } 
+        if (!x.ruHumanb()){
+        cpick= rand.nextInt(x.getCards().size()+1);
+                }
+       play.add(x.getCards().get(cpick-1));
+            tnumb++;
+        }
+    System.out.println(play);
+       
 
-            }
+    }
         }
     }
 
@@ -167,33 +171,40 @@ public class Game {
     public static void main(String[] args) {
         Player a = new Player("H");
         Player b = new Player("CPU");
-        Deck deck = new Deck();
-        System.out.println(a);
+        Deck deck= new Deck();
+          System.out.println(a);
         System.out.println(b);
-
+        
         deck.shuffle();
         deck.dealCards(a, b);
         System.out.println(a);
         System.out.println(b);
-
+        
         Preparation.pickDealer(a, b);
-        System.out.println(a);
+         System.out.println(a);
         System.out.println(b);
-
-        Preparation.provCrib(a);
-        Preparation.provCrib(b);
-
-        Crib crib = new Crib(a, b);
-        crib.assignCrib(a, b);
-
-        System.out.println(a);
+        
+       a.setCribPick(Preparation.provCrib(a)); 
+       b.setCribPick(Preparation.provCrib(b));
+        
+       Crib crib= new Crib(a,b);
+      crib.assignCrib(a, b);
+      
+       System.out.println(a);
         System.out.println(b);
-
+        
+        Play.play(a, b);
+        
+        
+        
+        
+        
         // shffle, deal, make the crib, cut deck of non dealer
-        // front peg back peg
-        /*
+       // front peg back peg
+       /*
        Game board object
        
-         */
+       */
+
     }
 }

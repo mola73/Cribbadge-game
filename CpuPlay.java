@@ -16,7 +16,8 @@ import java.util.Scanner;
  * @author mpereira
  */
 public class CpuPlay implements PlayInterface{
-    public ArrayList<Card> play(Player cpu, Play play) {
+    @Override
+    public ArrayList<Card> play(Player cpu, Play play) {// FIX THIS FIRST CHECK IF THE PLAYER IS A CPU!!! WITH AN IF STATEMENT
         Random rnd = new Random();
         ArrayList<Card> cpucards = cpu.getCards();//copy of human's card
         int cpick = 0;//cardpick
@@ -29,7 +30,7 @@ public class CpuPlay implements PlayInterface{
             System.out.printf("%s \n\n", cpu.getCards());
             cpick = rnd.nextInt();
         }
-        play.setPlay(cpucards.get(cpick));
+        play.setPlay(cpucards.get(cpick));// adds chose card to play arraylist
         cpucards.remove(cpick);
         return cpucards;
     }

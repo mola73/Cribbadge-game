@@ -13,9 +13,9 @@ import java.util.Scanner;
  *
  * @author mpereira
  */
-public class HumanPlay implements PlayInterface{
-
-    @Override
+public class HumanPlay extends CpuPlay implements PlayInterface {
+@Override
+    
     public ArrayList<Card> play(Player human, Play play) {
         Scanner sc = new Scanner(System.in);
         ArrayList<Card> hcards = human.getCards();//copy of human's card

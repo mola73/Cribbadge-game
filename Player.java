@@ -52,7 +52,17 @@ public class Player {
 
         }
     }
-
+    
+    public Player switchPlayer(Player cpu){
+       return cpu;
+    }
+public Player  getP1(Player cpu){ //get first player to put a card down (pone)
+    if(!this.ruDealer()){//if human is a pone rtruen it else return cpu
+        return this;
+    }
+    else return cpu;
+    
+}
     public String ruHuman() {
         if (this.human) {
             return "Human";
