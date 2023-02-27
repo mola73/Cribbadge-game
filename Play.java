@@ -138,26 +138,28 @@ public class Play {
         return 0;
     }
     
-    public static boolean sequncheck(ArrayList<Card> c1){
-        
+    public static boolean sequncheck(int c1, int c2){
+        return c1 == c2 + 1;
         
     }
 
     public static int run(ArrayList<Card> c1) {
         ArrayList<Integer> sortedCards = new ArrayList();
-        
+        int pointCount = 0;
         for(Card c: c1){
             sortedCards.add(c.getRank().count());
-            Collections.sort(sortedCards);
-            
+            Collections.sort(sortedCards);            
         }
         if(sortedCards.size()>2) {
-            for(int i=0; i< sortedCards.size(); i++){
-                while(sortedCards.get(i)+1 == sortedCards.get(i+1)){
-                    
-                    i++; 
+            for(int i=1; i< sortedCards.size(); i++){
+                pointCount = i;
+                if(sequncheck(sortedCards.get(i), sortedCards.get(i-1)) && i >= 2){//THE EQUAL OR HIGHER THAN 2 IS TO MAKE SURE THERE ARE AT LEAST THREE OR MORE CARDS THAT ARE EQUAL
+                    pointCount = pointCount + 1;//SUMS UP THE POINTS THAT WILL BE RETURNED
                 }
-                
+                else if(!sequncheck(sortedCards.get(i), sortedCards.get(i-1)) && i >= 2){//SO, WHEN IT IS FALSE, BUT i IS STILL HIGHER THAN 2
+                    return pointCount;
+                }
+                            
 //                if(sortedCards.get(i)+1 == sortedCards.get(i+1)) {//&& sortedCards.get(i)+1 == sortedCards.get(i+2)-1){
 //                    return 3;
 //                }
