@@ -184,14 +184,16 @@ public class Game {
          System.out.println(a);
         System.out.println(b);
         
-        Preparation.provCrib(a);
-        Preparation.provCrib(b);
+       a.setCribPick(Preparation.provCrib(a)); 
+       b.setCribPick(Preparation.provCrib(b));
         
        Crib crib= new Crib(a,b);
       crib.assignCrib(a, b);
       
        System.out.println(a);
         System.out.println(b);
+        
+        Play.play(a, b);
         
         
         

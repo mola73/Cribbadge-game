@@ -15,7 +15,7 @@ import java.util.Scanner;
  *
  * @author mpereira
  */
-public class Play {
+public class Play {// the paly method does not tak turns for cpu
 
     private static int count = 0;
     private static int playSum = 0;
@@ -79,6 +79,9 @@ public class Play {
             playSum = playSum + x.getCards().get(cpick - 1).getRank().count();
             
             //CHECK METHOD SHOULD BE AROUND HERE
+          //  System.out.println(check(play));
+          //  x.setPPC(check(play));
+          //  System.out.println(x);
             
             if (x.ruHumanb()) {//delete the given card
                 hcards.remove(cpick - 1);
@@ -94,6 +97,15 @@ public class Play {
                 playSum = 0;
             }
         }
+    }
+    
+    public static int check(ArrayList<Card> c1){
+        int sumpoints =pair( c1);
+        
+        return sumpoints;
+       
+        
+        
     }
 
     public static int pair(ArrayList<Card> c1) {
@@ -156,7 +168,7 @@ public class Play {
                 if(sequncheck(sortedCards.get(i), sortedCards.get(i-1)) && i >= 2){//THE EQUAL OR HIGHER THAN 2 IS TO MAKE SURE THERE ARE AT LEAST THREE OR MORE CARDS THAT ARE EQUAL
                     pointCount = pointCount + 1;//SUMS UP THE POINTS THAT WILL BE RETURNED
                 }
-                else if(!sequncheck(sortedCards.get(i), sortedCards.get(i-1)) && i >= 2){//SO, WHEN IT IS FALSE, BUT i IS STILL HIGHER THAN 2
+                 if(!sequncheck(sortedCards.get(i), sortedCards.get(i-1)) && i >= 2){//SO, WHEN IT IS FALSE, BUT i IS STILL HIGHER THAN 2
                     return pointCount;
                 }
                             
