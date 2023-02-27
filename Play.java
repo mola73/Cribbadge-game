@@ -15,18 +15,32 @@ import java.util.Scanner;
  *
  * @author mpereira
  */
-public class Play {// the paly method does not tak turns for cpu
+public class Play {
 
     private static int count = 0;
     private static int playSum = 0;
+    private ArrayList<Card> Play;
+
+    public ArrayList<Card> getPlay() {
+        return Play;
+    }
+
+    public void setPlay(Card c) {
+        this.Play.add(c);
+    }
+
+    public Play(ArrayList<Card> Play) {
+        this.Play = Play;
+    }
 
     public static void play(Player human, Player cpu) {
-
+        
+        Play play = new Play(new ArrayList());
         Random rand = new Random();
         Scanner sc = new Scanner(System.in);
         ArrayList<Card> hcards = human.getCards();//copy of human's card
         ArrayList<Card> cpucards = cpu.getCards();//copy of cpu's cards
-        ArrayList<Card> play = new ArrayList();// list to track placement of cards in play
+//        ArrayList<Card> play = new ArrayList();// list to track placement of cards in play
         int tnumb = 2;// tnumb is counting the count of turns for the paly. the pone puts a card down 1st, the dealer puts a card second.....
         int cpick = 0;
         //assigning the pone
@@ -79,9 +93,6 @@ public class Play {// the paly method does not tak turns for cpu
             playSum = playSum + x.getCards().get(cpick - 1).getRank().count();
             
             //CHECK METHOD SHOULD BE AROUND HERE
-          //  System.out.println(check(play));
-          //  x.setPPC(check(play));
-          //  System.out.println(x);
             
             if (x.ruHumanb()) {//delete the given card
                 hcards.remove(cpick - 1);
@@ -97,15 +108,6 @@ public class Play {// the paly method does not tak turns for cpu
                 playSum = 0;
             }
         }
-    }
-    
-    public static int check(ArrayList<Card> c1){
-        int sumpoints =pair( c1);
-        
-        return sumpoints;
-       
-        
-        
     }
 
     public static int pair(ArrayList<Card> c1) {
@@ -168,7 +170,7 @@ public class Play {// the paly method does not tak turns for cpu
                 if(sequncheck(sortedCards.get(i), sortedCards.get(i-1)) && i >= 2){//THE EQUAL OR HIGHER THAN 2 IS TO MAKE SURE THERE ARE AT LEAST THREE OR MORE CARDS THAT ARE EQUAL
                     pointCount = pointCount + 1;//SUMS UP THE POINTS THAT WILL BE RETURNED
                 }
-                 if(!sequncheck(sortedCards.get(i), sortedCards.get(i-1)) && i >= 2){//SO, WHEN IT IS FALSE, BUT i IS STILL HIGHER THAN 2
+                else if(!sequncheck(sortedCards.get(i), sortedCards.get(i-1)) && i >= 2){//SO, WHEN IT IS FALSE, BUT i IS STILL HIGHER THAN 2
                     return pointCount;
                 }
                             

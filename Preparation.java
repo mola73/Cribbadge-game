@@ -35,10 +35,10 @@ public class Preparation {//Picks dealer, gets cribpicks, and assigns crib to de
         human.setDealer(hdealer);
         cpu.setDealer(!hdealer);
         
-//        
-//        //This part pick the cribpick from the 2 players
-//        human.setCribPick(provCrib(human));
-//        cpu.setCribPick(provCrib(cpu));
+        
+        //This part pick the cribpick from the 2 players
+        human.setCribPick(provCrib(human));
+        cpu.setCribPick(provCrib(cpu));
 
     }
         public static final ArrayList<Card> makeCrib(Player human, Player cpu) {// takes the provided cards for the crib and put it into one crib
