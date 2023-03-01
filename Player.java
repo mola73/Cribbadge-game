@@ -52,17 +52,20 @@ public class Player {
 
         }
     }
-    
-    public Player switchPlayer(Player cpu){
-       return cpu;
+
+    public Player switchPlayer(Player cpu) {
+        return cpu;
     }
-public Player  getP1(Player cpu){ //get first player to put a card down (pone)
-    if(!this.ruDealer()){//if human is a pone rtruen it else return cpu
-        return this;
+
+    public Player getP1(Player cpu) { //get first player to put a card down (pone)
+        if (!this.ruDealer()) {//if human is a pone rtruen it else return cpu
+            return this;
+        } else {
+            return cpu;
+        }
+
     }
-    else return cpu;
-    
-}
+
     public String ruHuman() {
         if (this.human) {
             return "Human";
@@ -70,26 +73,27 @@ public Player  getP1(Player cpu){ //get first player to put a card down (pone)
             return "CPU";
         }
     }
-    
-    public boolean ruHumanb(){
+
+    public boolean ruHumanb() {
         return this.human;
-        
+
     }
 
     public boolean ruDealer() {
         return this.dealer;
     }
-    public  void flipDealer(){
-        this.dealer=!this.dealer;
-        this.pone=!this.pone;
+
+    public void flipDealer() {
+        this.dealer = !this.dealer;
+        this.pone = !this.pone;
     }
 
     public ArrayList<Card> getcribPick() {
         return this.cribpick;
     }
-    
-    public void setCribPick(ArrayList cribpick){
-        this.cribpick= cribpick;
+
+    public void setCribPick(ArrayList cribpick) {
+        this.cribpick = cribpick;
     }
 
     public final void makeCrib(Player pone) {//method called by dealer to create crib(2 from pone in parmater and 2 from dealerattributes)
@@ -149,8 +153,9 @@ public Player  getP1(Player cpu){ //get first player to put a card down (pone)
     public ArrayList<Card> getCards() {
         return this.cards;
     }
-     public void setCards(ArrayList x) {
-        this.cards=x;
+
+    public void setCards(ArrayList x) {
+        this.cards = x;
     }
 
     public void setCrib(ArrayList crib) {

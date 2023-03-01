@@ -6,12 +6,11 @@ import java.util.ArrayList;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-
 /**
  *
  * @author mpereira
  */
 public interface PlayInterface {
-    ArrayList<Card> play(Player human, Play play);
+
+    ArrayList<Card> play(Player a, Player b, Play play, ArrayList<Card> p1cards, ArrayList<Card> p2cards);
 }

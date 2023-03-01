@@ -193,7 +193,8 @@ public class Game {
        System.out.println(a);
         System.out.println(b);
         
-        Play.play(a, b);
+        Play playList2= new Play(new ArrayList());
+        playList2.play(a, b);
         
         
         
