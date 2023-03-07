@@ -15,7 +15,7 @@ import java.util.Scanner;
  *
  * @author mpereira
  */
-public class Play extends HumanPlay {
+public class Play extends Human {
     //THE RANDOM IS NOT WORKIG OF RTHE CPUPLAY, FIX THE CONSTARINTS ON THE CPU RAND INTEGER,EVERYTHING ELSE IS OK, JUST TEST ECH COMBINATION ONE BY ONE.
 // Make point methods private,test if the methods work.
 
@@ -45,30 +45,40 @@ public class Play extends HumanPlay {
         playSum = playSum + cardcount;
     }
 
-    public void play(Player human, Player cpu) {
+    public void play(Human human, Cpu cpu) {
 
         ArrayList<Card> hcards = human.getCards();//copy of human's card
         ArrayList<Card> cpucards = cpu.getCards();//copy of cpu's cards
-        //int tnumb=2;
+         ArrayList<Card> cardturn = new ArrayList();//copy of cpu's cards
         Player x = human.getP1(cpu);// calls method that returns  who is the pone
 
         while (!(hcards.isEmpty()) && !(cpucards.isEmpty())) {
-
-            if (x.ruHumanb()) { //if human
-                hcards = this.play(human, cpu, this, hcards, cpucards);
-                System.out.println("updated card  " + hcards);
-                System.out.println(this);
+            
+            if(x==human){
+                cardturn=hcards;
+                cardturn = human.play(x, cpu, this, hcards, cpucards);
+                System.out.println("updated card  " + cardturn);
+                System.out.println(this.PlayList);
                 x.setPPC(this.check());
+                System.out.println(human);
                 x = x.switchPlayer(cpu);// switches the player
+                
             }
-
-            if (!x.ruHumanb()) {//if non human(cpu)
-                cpucards = this.play(cpu, human, this, cpucards, hcards);
-                System.out.println("updated card  " + cpucards);
-                System.out.println(this);
+                
+             if(x==cpu){
+                cardturn=cpucards;
+                cardturn = cpu.play(x, human, this, cpucards, hcards);//FIX THIS
+                System.out.println("updated card  " + cardturn);
+                System.out.println(this.PlayList);
                 x.setPPC(this.check());
-                x = x.switchPlayer(human);// switches the player
+                System.out.println(cpu);
+               
+           
+                
             }
+              x = x.switchPlayer(cpu);
+       
+
         }
     }
 
@@ -80,92 +90,13 @@ public class Play extends HumanPlay {
     public void resetpicklist() {
         this.PlayList.clear();
     }
-    //  public void
+   
 
-//if (go(x, cpick)) {//VERIFIES IF THE CARD BEING PUT DOWN DOES NOT SURPASS 31, AND IF IT DOES, IT CALLS GO
-//              play.clear();               
-//              System.out.println(x + " Says: GO!");
-//              continue;
-//        }
-//    public static void play(Player human, Player cpu) {
-//        
-//        Play play = new Play(new ArrayList());
-//        Random rand = new Random();
-//        Scanner sc = new Scanner(System.in);
-//        ArrayList<Card> hcards = human.getCards();//copy of human's card
-//        ArrayList<Card> cpucards = cpu.getCards();//copy of cpu's cards
-////        ArrayList<Card> play = new ArrayList();// list to track placement of cards in play
-//        int tnumb = 2;// tnumb is counting the count of turns for the paly. the pone puts a card down 1st, the dealer puts a card second.....
-//        int cpick = 0;
-//        //assigning the pone
-//        Player x = human;
-//        if (!human.ruDealer()) {
-//            x = human;
-//        } else {
-//            if (!human.ruDealer()) {
-//                x = cpu;
-//            }
-//
-//        }
-//
-//        System.out.println("THE    ROUND    BEGINSSSS");
-//        while (!(hcards.isEmpty()) && !(cpucards.isEmpty())) { //while all the card of both players are not used
-//            //this part switches the player in the play
-//            if (tnumb % 2 == 0) {
-//                if (human.ruDealer()) {
-//                    x = human;
-//                } else {
-//                    x = cpu;
-//                }
-//            }
-//            if (tnumb % 2 != 0) {
-//                if (human.ruDealer()) {
-//                    x = human;
-//                } else {
-//                    x = cpu;
-//                }
-//            }
-//
-//            System.out.printf("%s  %s please put one card down 1st card=1, 2nd card=2.....", x.getStatus(), x.ruHuman());
-//            System.out.printf("%s \n\n", x.getCards());
-//
-//            if (x.ruHumanb()) {
-//                cpick = sc.nextInt();
-//            }
-//            if (!x.ruHumanb()) {
-//                cpick = rand.nextInt(x.getCards().size() + 1);// pick random number from 1 to4, then from 1 to 3... 
-//            }
-//
-//            if (go(x, cpick)) {//VERIFIES IF THE CARD BEING PUT DOWN DOES NOT SURPASS 31, AND IF IT DOES, IT CALLS GO
-//                play.clear();
-//                System.out.println(x + " Says: GO!");
-//                continue;
-//            }
-//
-//            play.add(x.getCards().get(cpick - 1));//put the selected card into the arraylist called play to keep track of the placed cards
-//
-//            playSum = playSum + x.getCards().get(cpick - 1).getRank().count();
-//            
-//            //CHECK METHOD SHOULD BE AROUND HERE
-//            
-//            if (x.ruHumanb()) {//delete the given card
-//                hcards.remove(cpick - 1);
-//            }
-//            if (!x.ruHumanb()) {
-//                cpucards.remove(cpick - 1);
-//            }
-//            tnumb++;// move to the next turn
-//            System.out.println(play);
-//
-//            if (playSum >= 31) {
-//                play.clear();
-//                playSum = 0;
-//            }
-//        }
-    public int pair() {
+
+    public int pair() {//this works
         if (this.PlayList.size() >= 2) {
             if (this.PlayList.get(count).getRank() == this.PlayList.get(count + 1).getRank()) {
-                System.out.println(this.PlayList.get(count).getRank() + "  " + this.PlayList.get(count + 1).getRank());
+                System.out.println(this.PlayList.get(count).getRank() + "  " + this.PlayList.get(count + 1).getRank());// to show that the 2 cards are the same
                 count++;
                 return 2;
 
@@ -177,28 +108,41 @@ public class Play extends HumanPlay {
     }
 
     public int threePair() {
+       
+        int start=0;
         if (this.PlayList.size() >= 3) {
-            if (this.PlayList.get(count).getRank() == this.PlayList.get(count + 1).getRank() && this.PlayList.get(count).getRank() == this.PlayList.get(count + 2).getRank()) {
-                System.out.println(this.PlayList.get(count).getRank() + "  " + this.PlayList.get(count + 1).getRank());
-                count++;
+            while( start+3 != this.PlayList.size()-1){
+          ArrayList <Card> check=new ArrayList();
+          for(int i=start;i<3;i++){
+              check.add(this.PlayList.get(i));
+                      }
+           
+            if (check.get(0).getRank() == check.get(1).getRank()&& check.get(1).getRank()== check.get(2).getRank()){
+                //pcount++;
                 return 6;
-
             }
-            count++;
+            }
+            
             return 0;
         }
         return 0;
     }
 
     public int fourPair() {
+        int start=0;
         if (this.PlayList.size() >= 4) {
-            if (this.PlayList.get(count).getRank() == this.PlayList.get(count + 1).getRank() && this.PlayList.get(count).getRank() == this.PlayList.get(count + 2).getRank() && this.PlayList.get(count).getRank() == this.PlayList.get(count + 3).getRank()) {
-                System.out.println(this.PlayList.get(count).getRank() + "  " + this.PlayList.get(count + 1).getRank());
-                count++;
+            while( start+4 != this.PlayList.size()-1){
+          ArrayList <Card> check=new ArrayList();
+          for(int i=start;i<4;i++){
+              check.add(this.PlayList.get(i));
+                      }
+           
+            if (check.get(0).getRank() == check.get(1).getRank()&& check.get(1).getRank()== check.get(2).getRank()&&check.get(2).getRank()== check.get(3).getRank()){
+               
                 return 12;
-
             }
-            count++;
+            }
+            
             return 0;
         }
         return 0;
@@ -224,16 +168,12 @@ public class Play extends HumanPlay {
                 } else if (!sequncheck(sortedCards.get(i), sortedCards.get(i - 1)) && i >= 2) {//SO, WHEN IT IS FALSE, BUT i IS STILL HIGHER THAN 2
                     return pointCount;
                 }
-
-//                if(sortedCards.get(i)+1 == sortedCards.get(i+1)) {//&& sortedCards.get(i)+1 == sortedCards.get(i+2)-1){
-//                    return 3;
-//                }
             }
         }
         return 0;
     }
 
-    public int fifteen() {
+    public int fifteen() {// this works
         int sum = 0;
         for (Card c : this.PlayList) {
             sum = sum + c.getRank().count();
@@ -269,8 +209,8 @@ public class Play extends HumanPlay {
     }
 
     public int check() {
-         this.playSum =this.playSum+ this.pair();
-        return playSum;
+         int x= this.run() + this.pair()+ this.fifteen()+ this.fourPair()+this.threePair()+this.run();
+        return x;
 
     }
 

@@ -22,6 +22,19 @@ public class Player {
     private ArrayList<Card> crib;
     private ArrayList<Card> cribpick;
     private boolean human;
+    
+    public String ruHuman() {
+        if (this.human) {
+            return "Human";
+        } else {
+            return "CPU";
+        }
+    }
+
+    public boolean ruHumanb() {
+        return this.human;
+
+    }
 
     private ArrayList<Card> makeCards() {
         Random ran = new Random();
@@ -38,8 +51,8 @@ public class Player {
         return x == 1;
     }
 
-    public Player(String state) {
-        this.human = state.equals("H");
+    public Player() {
+//        this.human = state.equals("H");
         this.playpegcount = 0;
         this.showpegcount = 0;
         this.score = 0;
@@ -66,18 +79,6 @@ public class Player {
 
     }
 
-    public String ruHuman() {
-        if (this.human) {
-            return "Human";
-        } else {
-            return "CPU";
-        }
-    }
-
-    public boolean ruHumanb() {
-        return this.human;
-
-    }
 
     public boolean ruDealer() {
         return this.dealer;
@@ -203,7 +204,7 @@ public class Player {
 
     @Override
     public String toString() {
-        return String.format(" %s \n %s \nPlaypegcount: %d \n Showpegcount:%d \n Score: %d \n Dealer:%b \n Pone: %b\n Cards: %s\n Crib : %s\n\n", ruHuman(), getStatus(), getPPC(), getSPC(), getScore(), getDealer(), getPone(), getCards(), getCrib());
+        return String.format("  %s \nPlaypegcount: %d \n Showpegcount:%d \n Score: %d \n Dealer:%b \n Pone: %b\n Cards: %s\n Crib : %s\n\n", getStatus(), getPPC(), getSPC(), getScore(), getDealer(), getPone(), getCards(), getCrib());
     }
 
 }

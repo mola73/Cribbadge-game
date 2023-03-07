@@ -102,59 +102,7 @@ public class Game {
 //        
 //    }
 //    
-    public static void play(Player human, Player cpu) {
-        
-        Random rand= new Random();
-        Scanner sc = new Scanner(System.in);
-        ArrayList<Card> hcards = human.getCards();
-        ArrayList<Card> cpucards = cpu.getCards();
-        ArrayList<Card> play = new ArrayList();
-       int tnumb = 2;
-       int cpick=0;
-        
-        Player x= human;
-        if (!human.ruDealer()) {
-            x = human;
-        } else {
-            if (!human.ruDealer()) {
-               x = cpu;
-            }
-
-        }
-
-        System.out.println("THE    ROUND    BEGINSSSS");
-        while (hcards.isEmpty() && (cpucards.isEmpty())) { //while all the card of both players are not used
-            if(tnumb%2==0){
-                if(human.ruDealer()){
-                    x=human;
-                }else{
-                    x=cpu;
-                }
-                if(tnumb%2!=0){
-                if(human.ruDealer()){
-                    x=human;
-                }else{
-                    x=cpu;
-                }
-               
-            
-        System.out.printf("%s  %s please put one card down 1st card=1, 2nd card=2.....",x.getStatus(),x.ruHuman());
-        System.out.printf("%s \n\n", x.getCards());
-        if(x.ruHumanb()){
-         cpick= sc.nextInt();
-        } 
-        if (!x.ruHumanb()){
-        cpick= rand.nextInt(x.getCards().size()+1);
-                }
-       play.add(x.getCards().get(cpick-1));
-            tnumb++;
-        }
-    System.out.println(play);
-       
-
-    }
-        }
-    }
+    
 
 //    public static void show(){
 //        
@@ -169,8 +117,8 @@ public class Game {
 //        
 //    }
     public static void main(String[] args) {
-        Player a = new Player("H");
-        Player b = new Player("CPU");
+        Human a = new Human();
+        Cpu b = new Cpu();
         Deck deck= new Deck();
           System.out.println(a);
         System.out.println(b);
@@ -193,9 +141,14 @@ public class Game {
        System.out.println(a);
         System.out.println(b);
         
-        Play playList2= new Play(new ArrayList());
-        playList2.play(a, b);
-        
+       Play playList2= new Play(new ArrayList());
+      playList2.play(a, b);
+
+//        Show one= new Show(a,b);
+//        one.show();
+//         System.out.println(a);
+//        System.out.println(b);
+//        
         
         
         

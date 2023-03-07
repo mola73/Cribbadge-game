@@ -26,7 +26,7 @@ public class Preparation {//Picks dealer, gets cribpicks, and assigns crib to de
         do {
             System.out.println("Player 1(human) please pick a card from number 1 to 52");
             pick1 = sc.nextInt()-1;
-        } while (pick1 > 52 || pick1 < 1);
+        } while (pick1 > 51 || pick1 < 0);
         int pick2 = rand.nextInt(52) + 1;
         Card p1pick = Card.getCard(pick1);
         Card cpupick = Card.getCard(pick2);
@@ -41,7 +41,7 @@ public class Preparation {//Picks dealer, gets cribpicks, and assigns crib to de
 //        cpu.setCribPick(provCrib(cpu));
 
     }
-        public static final ArrayList<Card> makeCrib(Player human, Player cpu) {// takes the provided cards for the crib and put it into one crib
+        public static final ArrayList<Card> makeCrib(Human human, Cpu cpu) {// takes the provided cards for the crib and put it into one crib
         ArrayList<Card> crib = new ArrayList();
         //FIX THIS.
 
