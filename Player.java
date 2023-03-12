@@ -22,7 +22,7 @@ public class Player {
     private ArrayList<Card> crib;
     private ArrayList<Card> cribpick;
     private boolean human;
-    
+
     public String ruHuman() {
         if (this.human) {
             return "Human";
@@ -78,7 +78,6 @@ public class Player {
         }
 
     }
-
 
     public boolean ruDealer() {
         return this.dealer;

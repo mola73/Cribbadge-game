@@ -62,7 +62,9 @@ Random rand= new Random();
     } 
          CPU.setCards(cpucard);
     }
-         
+      public Card getStartCard(){
+          return this.deck.get(13);
+      }   
     @Override
     public String toString(){
         return String.format("%s",this.deck);

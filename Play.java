@@ -15,134 +15,187 @@ import java.util.Scanner;
  *
  * @author mpereira
  */
-public class Play extends Human {
-    //THE RANDOM IS NOT WORKIG OF RTHE CPUPLAY, FIX THE CONSTARINTS ON THE CPU RAND INTEGER,EVERYTHING ELSE IS OK, JUST TEST ECH COMBINATION ONE BY ONE.
-// Make point methods private,test if the methods work.
+public class Play {
+    //Try making the construcotr figure out who the player is and dealer/non dealer and keep the as member variables
+    //even if the re is more comands after the play, it pauses
 
-    private static int count = 0;
+    // private static int count = 0;
     private int playSum;
     private ArrayList<Card> PlayList;
+    private Card startCard;
+    private ArrayList<Card> hcards;
+    private ArrayList<Card> cpucards;
+    private Human human;
+    private Cpu cpu;
+    private Player x;
+    private boolean go;
+
+    public boolean getGo() {
+        return this.go;
+    }
+
+    public void setGo(boolean x) {
+        this.go = x;
+    }
+
+    public Play(Human human, Cpu cpu, ArrayList<Card> hcards, ArrayList<Card> cpucards, Card startCard) {
+        this.PlayList = new ArrayList();
+        this.human = human;
+        this.cpu = cpu;
+        this.startCard = startCard;
+        this.hcards = new ArrayList();
+        for (Card x : hcards) {
+            this.hcards.add(x);
+        }
+        this.cpucards = new ArrayList();
+        for (Card y : cpucards) {
+            this.cpucards.add(y);
+        }
+        this.x = null;
+
+    }
 
     public ArrayList<Card> getPlayList() {
         return PlayList;
     }
 //Play playList1 = new Play(new ArrayList());
 
-    public ArrayList<Card> getPlay() {
-        return PlayList;
-    }
-
     public void setPlay(Card c) {
         this.PlayList.add(c);
     }
 
-    public Play(ArrayList<Card> Play) {
+    public Play(ArrayList<Card> Play, Card startcard) {
         this.PlayList = Play;
         this.playSum = 0;
+        this.startCard = startcard;
     }
 
-    public void setplaySum(int cardcount) {
+    public void setPlaySum(int cardcount) {
         playSum = playSum + cardcount;
     }
 
-    public void play(Human human, Cpu cpu) {
+    public int getPlaySum() {
+        return this.playSum;
+    }
 
-        ArrayList<Card> hcards = human.getCards();//copy of human's card
-        ArrayList<Card> cpucards = cpu.getCards();//copy of cpu's cards
-         ArrayList<Card> cardturn = new ArrayList();//copy of cpu's cards
-        Player x = human.getP1(cpu);// calls method that returns  who is the pone
+    public void resetplaySum() {
+        this.playSum = 0;
+    }
+//    public boolean didGo(){
+//        if (this.go(hcards, playSum)||this.go(hcards)){
+//            x.
+//        }
+//    }
+
+    public void play() {
+        ArrayList<Card> cardturn = new ArrayList();//copy of cpu's cards
+        this.x = this.human.getP1(this.cpu);// calls method that returns  who is the pone
 
         while (!(hcards.isEmpty()) && !(cpucards.isEmpty())) {
-            
-            if(x==human){
-                cardturn=hcards;
-                cardturn = human.play(x, cpu, this, hcards, cpucards);
+
+            if (x == human) {
+                cardturn = this.hcards;
+                cardturn = human.play(human, cpu, this, hcards, cpucards);
                 System.out.println("updated card  " + cardturn);
-                System.out.println(this.PlayList);
+                System.out.println("Playlist: " + this.PlayList);
                 x.setPPC(this.check());
-                System.out.println(human);
-                x = x.switchPlayer(cpu);// switches the player
-                
+
+                //  System.out.println(human);
+                x = x.switchPlayer(cpu);
+                if (this.getGo()) { //does proper player switch after go
+                    x = x.switchPlayer(cpu);
+                }
+
             }
-                
-             if(x==cpu){
-                cardturn=cpucards;
-                cardturn = cpu.play(x, human, this, cpucards, hcards);//FIX THIS
+
+            if (x == cpu) {
+                cardturn = cpucards;
+                cardturn = cpu.play(cpu, human, this, cpucards, hcards);//FIX THIS
                 System.out.println("updated card  " + cardturn);
-                System.out.println(this.PlayList);
+                System.out.println("Playlist: " + this.PlayList);
                 x.setPPC(this.check());
-                System.out.println(cpu);
-               
-           
-                
+                System.out.println("one");
+                // System.out.println(cpu);
+
+                x = x.switchPlayer(human);
+                if (this.getGo()) { //does proper player switch after go
+                    x = x.switchPlayer(cpu);
+                }
+                // System.out.println("two");
             }
-              x = x.switchPlayer(cpu);
-       
 
         }
     }
 
-    public void changeRemC(int cpick, ArrayList<Card> playerpickcards) { //This method updates the Player a's remaining pick cards after a card is put down
+    public ArrayList<Card> changeRemC(int cpick, ArrayList<Card> playerpickcards) { //This method updates the Player a's remaining pick cards after a card is put down
         // playerpickcards = playList1.play(a ,b,playList1);
         playerpickcards.remove(cpick);
+        return playerpickcards;
     }
 
     public void resetpicklist() {
         this.PlayList.clear();
     }
-   
-
 
     public int pair() {//this works
+        int count = 0;
+        System.out.println("pair");
         if (this.PlayList.size() >= 2) {
-            if (this.PlayList.get(count).getRank() == this.PlayList.get(count + 1).getRank()) {
-                System.out.println(this.PlayList.get(count).getRank() + "  " + this.PlayList.get(count + 1).getRank());// to show that the 2 cards are the same
-                count++;
-                return 2;
-
+            if (this.PlayList.indexOf(this.PlayList.get(count + 1)) < this.PlayList.size()) { //gets index of 2nd card being compard and checkks if it goes out of bounds
+                if (this.PlayList.get(count).getRank() == this.PlayList.get(count + 1).getRank()) {
+                    System.out.println(this.PlayList.get(count).getRank() + "  " + this.PlayList.get(count + 1).getRank());// to show that the 2 cards are the same
+                    count++;
+                    return 2;
+                }
             }
-            count++;
+
             return 0;
         }
         return 0;
     }
 
     public int threePair() {
-       
-        int start=0;
+        System.out.println("threepair");
+
+        int start = 0;
         if (this.PlayList.size() >= 3) {
-            while( start+3 != this.PlayList.size()-1){
-          ArrayList <Card> check=new ArrayList();
-          for(int i=start;i<3;i++){
-              check.add(this.PlayList.get(i));
-                      }
-           
-            if (check.get(0).getRank() == check.get(1).getRank()&& check.get(1).getRank()== check.get(2).getRank()){
-                //pcount++;
-                return 6;
+            while ((start + 3) <= this.PlayList.size() - 1) {
+                System.out.println("while");
+                ArrayList<Card> check = new ArrayList();
+                for (int i = start; i < 3 + start; i++) {
+                    check.add(this.PlayList.get(i));
+                }
+
+                if (check.get(0).getRank() == check.get(1).getRank() && check.get(1).getRank() == check.get(2).getRank()) {
+
+                    return 6;
+                }
+                start++;
             }
-            }
-            
+
             return 0;
         }
         return 0;
     }
 
     public int fourPair() {
-        int start=0;
+
+        System.out.println("fourpIR");
+        int start = 0;
         if (this.PlayList.size() >= 4) {
-            while( start+4 != this.PlayList.size()-1){
-          ArrayList <Card> check=new ArrayList();
-          for(int i=start;i<4;i++){
-              check.add(this.PlayList.get(i));
-                      }
-           
-            if (check.get(0).getRank() == check.get(1).getRank()&& check.get(1).getRank()== check.get(2).getRank()&&check.get(2).getRank()== check.get(3).getRank()){
-               
-                return 12;
+            while (start + 4 <= this.PlayList.size() - 1) {
+                ArrayList<Card> check = new ArrayList();
+                for (int i = start; i < 4 + start; i++) {
+                    check.add(this.PlayList.get(i));
+                }
+
+                if (check.get(0).getRank() == check.get(1).getRank() && check.get(1).getRank() == check.get(2).getRank() && check.get(2).getRank() == check.get(3).getRank()) {
+
+                    return 12;
+                }
+                start++;
             }
-            }
-            
+
             return 0;
         }
         return 0;
@@ -154,6 +207,7 @@ public class Play extends Human {
     }
 
     public int run() {
+        System.out.println("run");
         ArrayList<Integer> sortedCards = new ArrayList();
         int pointCount = 0;
         for (Card c : this.PlayList) {
@@ -174,6 +228,8 @@ public class Play extends Human {
     }
 
     public int fifteen() {// this works
+
+        System.out.println("fifteen");
         int sum = 0;
         for (Card c : this.PlayList) {
             sum = sum + c.getRank().count();
@@ -184,12 +240,44 @@ public class Play extends Human {
         return 0;
     }
 
-    public boolean go(Player p1, int cpick) {
-        if (this.playSum + p1.getCards().get(cpick - 1).getRank().count() > 31) {
+    public boolean go(ArrayList<Card> card, int cpick) {
+        if ((this.playSum + card.get(cpick).getRank().count()) > 31) {
             return true;
         } else {
             return false;
         }
+    }
+
+    // add playsum, remove hand,add to playlist
+    public void go(ArrayList<Card> cards) {
+        this.setGo(false);//reset go checker to be false;
+        int count = 0;
+        boolean cardadd = false;
+        for (int i = 0; i < cards.size(); i++) {
+            if ((this.playSum + cards.get(i).getRank().count()) <= 31) {
+                cardadd = true;
+                this.x = x.switchPlayer(cpu);// switch player because the cpu put a card down after the humans turn
+                count++;
+                this.setPlaySum(cards.get(i).getRank().count());
+                this.cpucards.remove(cards.get(i));
+                this.PlayList.add(cards.get(i));
+                System.out.printf("The %s card can be added by cpu %n", cards.get(i));
+            }
+            if ((this.playSum + cards.get(i).getRank().count() > 31) && cardadd == true) {
+                this.setGo(true);
+                this.resetpicklist();
+                this.resetplaySum();
+            }
+        }
+        if (count == cards.size() - 1) { //if all the cards can be added to the Playlist...
+            System.out.println(cpu.getStatus() + " says  GO!!");
+        } else {
+            System.out.println(cpu.getStatus() + " says  GO!!");
+
+            this.resetpicklist();
+            this.resetplaySum();
+        }
+
     }
 
     public static int total31(ArrayList<Card> hCard, ArrayList<Card> cCard, int playSum) {//the ArrayList used here is either hcards or cpucards
@@ -209,13 +297,13 @@ public class Play extends Human {
     }
 
     public int check() {
-         int x= this.run() + this.pair()+ this.fifteen()+ this.fourPair()+this.threePair()+this.run();
+        int x = this.run() + this.pair() + this.fifteen() + this.fourPair() + this.threePair();
         return x;
 
     }
 
-    public String toStirng() {
-        return String.format("Play List %s %n Playsum: %d", this.PlayList, this.playSum);
+    public String toStrrng() {
+        return String.format("Play List %s %n Playsum: %d", this.getPlayList(), this.getPlaySum());
     }
 
     public static void main(String[] args) {// IT WORKS

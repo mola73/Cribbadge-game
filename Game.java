@@ -38,7 +38,6 @@ public class Game {
 //        }
 //
 //    }
-
 //    public static final ArrayList<Card> provCrib(Player x) {//provides 2 cards from a player for the crib
 //        int pick;
 //        Random rand = new Random();
@@ -76,7 +75,6 @@ public class Game {
 //
 //        return picked;
 //    }
-
     public static void flipDealer(Player human, Player cpu) {
         human.flipDealer();
         cpu.flipDealer();
@@ -97,13 +95,10 @@ public class Game {
 //        }
 //        return crib;
 //    }
-
 //    public static void round(){
 //        
 //    }
 //    
-    
-
 //    public static void show(){
 //        
 //    }
@@ -119,46 +114,43 @@ public class Game {
     public static void main(String[] args) {
         Human a = new Human();
         Cpu b = new Cpu();
-        Deck deck= new Deck();
-          System.out.println(a);
+        Deck deck = new Deck();
+        System.out.println(a);
         System.out.println(b);
-        
+        // problem with human error handling
         deck.shuffle();
         deck.dealCards(a, b);
         System.out.println(a);
         System.out.println(b);
-        
-        Preparation.pickDealer(a, b);
-         System.out.println(a);
-        System.out.println(b);
-        
-       a.setCribPick(Preparation.provCrib(a)); 
-       b.setCribPick(Preparation.provCrib(b));
-        
-       Crib crib= new Crib(a,b);
-      crib.assignCrib(a, b);
-      
-       System.out.println(a);
-        System.out.println(b);
-        
-       Play playList2= new Play(new ArrayList());
-      playList2.play(a, b);
 
-//        Show one= new Show(a,b);
-//        one.show();
-//         System.out.println(a);
-//        System.out.println(b);
+        Preparation.pickDealer(a, b);
+        System.out.println(a);
+        System.out.println(b);
+
+        a.setCribPick(Preparation.provCrib(a));
+        b.setCribPick(Preparation.provCrib(b));
+
+        Crib crib = new Crib(a, b);
+        crib.assignCrib(a, b);
+
+        System.out.println(a);
+        System.out.println(b);
 //        
-        
-        
-        
-        
+        Play playList2 = new Play(a, b, a.getCards(), b.getCards(), deck.getStartCard());
+        playList2.play();
+
+//        Show one= new Show(a,b,deck.getStartCard());
+//        one.show();
+        System.out.println(a);
+        System.out.println(b);
+
+        // switch when both player say go, swith back to first 
+        // check thog and 
         // shffle, deal, make the crib, cut deck of non dealer
-       // front peg back peg
-       /*
+        // front peg back peg
+        /*
        Game board object
        
-       */
-
+         */
     }
 }

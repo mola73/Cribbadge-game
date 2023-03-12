@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 
-
 //import static com.mycompany.score.Deck.makeCrib;
 //import static Game.provCrib;
 import java.util.ArrayList;
@@ -16,32 +15,30 @@ import java.util.Scanner;
  * @author mpereira
  */
 public class Preparation {//Picks dealer, gets cribpicks, and assigns crib to dealer
-    
-    
-    
+
     public static void pickDealer(Player human, Player cpu) {//This  method picks the dealer, se
         int pick1;
         Scanner sc = new Scanner(System.in);
         Random rand = new Random();
         do {
             System.out.println("Player 1(human) please pick a card from number 1 to 52");
-            pick1 = sc.nextInt()-1;
+            pick1 = sc.nextInt() - 1;
         } while (pick1 > 51 || pick1 < 0);
-        int pick2 = rand.nextInt(52) + 1;
+        int pick2 = rand.nextInt(52);
         Card p1pick = Card.getCard(pick1);
         Card cpupick = Card.getCard(pick2);
-        
+
         boolean hdealer = (p1pick.getRank().count() < cpupick.getRank().count());
         human.setDealer(hdealer);
         cpu.setDealer(!hdealer);
-        
+
 //        
 //        //This part pick the cribpick from the 2 players
 //        human.setCribPick(provCrib(human));
 //        cpu.setCribPick(provCrib(cpu));
-
     }
-        public static final ArrayList<Card> makeCrib(Human human, Cpu cpu) {// takes the provided cards for the crib and put it into one crib
+
+    public static final ArrayList<Card> makeCrib(Human human, Cpu cpu) {// takes the provided cards for the crib and put it into one crib
         ArrayList<Card> crib = new ArrayList();
         //FIX THIS.
 
@@ -55,8 +52,9 @@ public class Preparation {//Picks dealer, gets cribpicks, and assigns crib to de
             crib.add(x);
         }
         return crib;
-        }
-        public static final ArrayList<Card> provCrib(Player x) {//provides 2 cards from a player for the crib
+    }
+
+    public static final ArrayList<Card> provCrib(Player x) {//provides 2 cards from a player for the crib
         int pick;
         Random rand = new Random();
         Scanner read1 = new Scanner(System.in);
@@ -93,6 +91,5 @@ public class Preparation {//Picks dealer, gets cribpicks, and assigns crib to de
 
         return picked;
     }
-    
-        
+
 }

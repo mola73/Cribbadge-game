@@ -3,10 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
-
-/**Muhammad Alfatih Olaniyan
+/** Muhammad Alfatih Olaniyan
  * UNBC ID:230148724
- * 
+ *
  *
  * @author muham
  */
@@ -24,25 +23,24 @@ public class Card {
     }
 
     private Card(int i) {//Make an array of all 52 cards and pick 1 with i, then assign it to the attributes being created
- 
-       
+
         if (i >= 0 && i <= 52) {
             this.cardrank = getDeck().get(i).getRank();
             this.cardsuit = getDeck().get(i).getSuit();
         }
     }
-    public static final ArrayList<Card> getDeck(){
-        ArrayList<Card> fill=new ArrayList();
- Rank[] rank= Rank.values();
- Suit[] suit=Suit.values();
+
+    public static final ArrayList<Card> getDeck() {
+        ArrayList<Card> fill = new ArrayList();
+        Rank[] rank = Rank.values();
+        Suit[] suit = Suit.values();
         for (Rank rank1 : rank) {
             for (Suit suit1 : suit) {
                 fill.add(Card.getCard(rank1, suit1));
             }
         }
- return fill;
+        return fill;
     }
-   
 
     public static Card getCard(Rank r, Suit s) { // public static mhtods for Constructors
         return new Card(r, s);
@@ -181,10 +179,14 @@ public class Card {
         return symbol;
     }
 
+    public boolean equals(Card x) {
+        return this.getRank() == x.getRank() && this.getSuit() == x.getSuit();
+    }
+
 //
     @Override
     public String toString() {// How do i print a rank and suit type. %...  %...
-       return String.format("%s of %s", this.getRank(), this.getSuit());//symbol(this.getSuit())
+        return String.format("%s of %s", this.getRank(), this.getSuit());//symbol(this.getSuit())
     }
 
 }
