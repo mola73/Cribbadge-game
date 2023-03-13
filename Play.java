@@ -79,43 +79,39 @@ public class Play {
     }
 
     public void resetplaySum() {
-        this.playSum = 0;
+        this.playSum = this.playSum-this.playSum;
     }
-//    public boolean didGo(){
-//        if (this.go(hcards, playSum)||this.go(hcards)){
-//            x.
-//        }
-//    }
 
     public void play() {
         ArrayList<Card> cardturn = new ArrayList();//copy of cpu's cards
         this.x = this.human.getP1(this.cpu);// calls method that returns  who is the pone
-
-        while (!(hcards.isEmpty()) && !(cpucards.isEmpty())) {
+        System.out.print("THE PLAY BEGINS");
+        while (!(hcards.isEmpty()) || !(cpucards.isEmpty())) {
 
             if (x == human) {
                 cardturn = this.hcards;
-                cardturn = human.play(human, cpu, this, hcards, cpucards);
+                cardturn = human.play(human, cpu, this, cardturn, this.cpucards);
                 System.out.println("updated card  " + cardturn);
                 System.out.println("Playlist: " + this.PlayList);
                 x.setPPC(this.check());
+                System.out.println(this);
 
                 //  System.out.println(human);
                 x = x.switchPlayer(cpu);
                 if (this.getGo()) { //does proper player switch after go
-                    x = x.switchPlayer(cpu);
+                    x = x.switchPlayer(human);
                 }
 
             }
 
             if (x == cpu) {
                 cardturn = cpucards;
-                cardturn = cpu.play(cpu, human, this, cpucards, hcards);//FIX THIS
+                cardturn = cpu.play(cpu, human, this, cardturn, this.hcards);//FIX THIS
                 System.out.println("updated card  " + cardturn);
                 System.out.println("Playlist: " + this.PlayList);
                 x.setPPC(this.check());
                 System.out.println("one");
-                // System.out.println(cpu);
+                  System.out.println(this);
 
                 x = x.switchPlayer(human);
                 if (this.getGo()) { //does proper player switch after go
@@ -128,7 +124,6 @@ public class Play {
     }
 
     public ArrayList<Card> changeRemC(int cpick, ArrayList<Card> playerpickcards) { //This method updates the Player a's remaining pick cards after a card is put down
-        // playerpickcards = playList1.play(a ,b,playList1);
         playerpickcards.remove(cpick);
         return playerpickcards;
     }
@@ -241,43 +236,47 @@ public class Play {
     }
 
     public boolean go(ArrayList<Card> card, int cpick) {
+        if(!card.isEmpty()){
         if ((this.playSum + card.get(cpick).getRank().count()) > 31) {
             return true;
         } else {
             return false;
         }
     }
+        return false;
+    }
 
     // add playsum, remove hand,add to playlist
     public void go(ArrayList<Card> cards) {
+         if(!cards.isEmpty()){
         this.setGo(false);//reset go checker to be false;
         int count = 0;
         boolean cardadd = false;
         for (int i = 0; i < cards.size(); i++) {
             if ((this.playSum + cards.get(i).getRank().count()) <= 31) {
                 cardadd = true;
-                this.x = x.switchPlayer(cpu);// switch player because the cpu put a card down after the humans turn
                 count++;
                 this.setPlaySum(cards.get(i).getRank().count());
                 this.cpucards.remove(cards.get(i));
                 this.PlayList.add(cards.get(i));
                 System.out.printf("The %s card can be added by cpu %n", cards.get(i));
+                // this.x = x.switchPlayer(cpu);// switch player because the cpu put a card down after the humans turn
             }
-            if ((this.playSum + cards.get(i).getRank().count() > 31) && cardadd == true) {
+            if ((this.playSum + cards.get(i).getRank().count() > 31) && cardadd == true) {// if the paysum goes over 31 and a card has been added
                 this.setGo(true);
                 this.resetpicklist();
                 this.resetplaySum();
-            }
-        }
-        if (count == cards.size() - 1) { //if all the cards can be added to the Playlist...
+            }else {// if  playsum is over 31 without a card being added.
             System.out.println(cpu.getStatus() + " says  GO!!");
-        } else {
-            System.out.println(cpu.getStatus() + " says  GO!!");
-
             this.resetpicklist();
             this.resetplaySum();
+        
+        } 
         }
-
+         }
+         
+         //if all the cards have been added to the Playlist...
+            System.out.println(cpu.getStatus() + " says  GO!!");
     }
 
     public static int total31(ArrayList<Card> hCard, ArrayList<Card> cCard, int playSum) {//the ArrayList used here is either hcards or cpucards
@@ -302,8 +301,9 @@ public class Play {
 
     }
 
-    public String toStrrng() {
-        return String.format("Play List %s %n Playsum: %d", this.getPlayList(), this.getPlaySum());
+    @Override
+    public String toString() {
+        return String.format("-------%nPlay List %s %n Playsum: %d %n human cards is %s %n Cpu cards is %s%n--------", this.getPlayList(), this.getPlaySum(), hcards, cpucards);
     }
 
     public static void main(String[] args) {// IT WORKS

@@ -52,7 +52,7 @@ public class Player {
     }
 
     public Player() {
-//        this.human = state.equals("H");
+
         this.playpegcount = 0;
         this.showpegcount = 0;
         this.score = 0;
@@ -60,10 +60,10 @@ public class Player {
         this.dealer = false;// will be made at the beggining of the game
         this.cards = null;
         this.cribpick = null;
-        if (dealer) {
-            this.crib = null;
+       
+            this.crib = new ArrayList();
 
-        }
+        
     }
 
     public Player switchPlayer(Player cpu) {
@@ -184,19 +184,16 @@ public class Player {
 
     }
 
-    public void roundreset(int scoreadd) {//add peg movement, remake crib at the beggining of the round seperately.
+    public void playerreset(int scoreadd) {//add peg movement, remake crib at the beggining of the round seperately.RESETS A PLAYER!!!!
+        this.setScore(this.getPPC());// add peg and show pints to score.
+        this.setScore(this.getSPC());
         this.playpegcount = 0;
         this.showpegcount = 0;
-        this.setScore(scoreadd);
-        this.dealer = !this.dealer;
-        this.pone = !pone;
+        this.flipDealer();
         this.cards.clear();
-        this.cards = this.makeCards();
         this.cribpick.clear();
-        //this.provCrib();
-        if (dealer) {
-            this.crib.clear();
-
+        if(!this.crib.isEmpty()){
+         this.crib.clear();
         }
 
     }

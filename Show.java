@@ -10,8 +10,7 @@ import java.util.Collections;
  *
  * @author muham
  */
-// mae subclass of human and cpu from Player then oveeride a play method in each subclass
-//cannot join between crib and hand mae a method that finds combinations of 4 cards at a time and apply to beth hand and crib.
+
 public class Show {// everything works but the run method
 
     //Pone show mthod,counts all points, then assigns to the player the ponts
@@ -38,6 +37,8 @@ public class Show {// everything works but the run method
     }
 
     public int check(ArrayList<Card> cards) {
+        
+        System.out.println("-----------------");
         return pair(cards) + threepair(cards) + fourpair(cards) + pairfifteen(cards) + threefifteen(cards) + fourfifteen(cards)+ run(cards)  + fourflush(cards) + fiveflush(cards) + oneForHisNob(cards);
     }
 
@@ -65,7 +66,7 @@ public class Show {// everything works but the run method
         for (Card y : this.dealer.getCrib()) {
             dealercrib.add(y);
         }
-        dealercards.add(starterCard);
+        dealercards.add(this.starterCard);
         dealercrib.add(this.starterCard);
 
         return check(dealercards) + check(dealercrib);

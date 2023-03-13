@@ -21,6 +21,7 @@ public class Cpu extends Player {
         this.human = false;
     }
 
+    @Override
     public String ruHuman() {
         if (this.human) {
             return "Human";
@@ -29,6 +30,7 @@ public class Cpu extends Player {
         }
     }
 
+    @Override
     public boolean ruHumanb() {
         return this.human;
 
@@ -40,10 +42,12 @@ public class Cpu extends Player {
     }
 
     public ArrayList<Card> play(Cpu cpu, Human human, Play play, ArrayList<Card> cpucards, ArrayList<Card> hcards) {// FIX THIS FIRST CHECK IF THE PLAYER IS A CPU!!! WITH AN IF STATEMENT
-        Random rnd = new Random(cpucards.size());
+               System.out.println("--------------------------------------------------------------------------------------------------------------------------");
+                if(!cpucards.isEmpty()){//if all the cpu's cards are not used
+        Random rnd = new Random();
 
         System.out.printf("%s  %s please put one card down 1st card=0, 2nd card=1.....\n", cpu.getStatus(), cpu.ruHuman());
-        System.out.printf("Available cards:%s \n\n", cpu.getCards());
+        System.out.printf("Available cards:%s %n", cpucards);
         System.out.printf("The playsum is %d\n", play.getPlaySum());
 
         int cpick = rnd.nextInt(cpucards.size());
@@ -51,6 +55,7 @@ public class Cpu extends Player {
 
         while (cpick > cpucards.size()) {//ERROR HANDLING
             System.out.println("ERROR! INSERT AGAIN\n");
+              System.out.printf("The playsum is %d\n", play.getPlaySum());
             System.out.printf("%s \n\n", cpu.getCards());
             cpick = rnd.nextInt(cpucards.size());
         }
@@ -62,24 +67,15 @@ public class Cpu extends Player {
         play.setPlay(cpucards.get(cpick));// adds chose card to play arraylist
         play.setPlaySum(cpucards.get(cpick).getRank().count());
         play.changeRemC(cpick, cpucards);
-        //  cpucards.remove(cpick);
         return cpucards;
+    }
+                return cpucards;
     }
 
     public void playGo(Player cpu, Player human, Play playList, ArrayList<Card> cpucards) {
-//        Random rnd = new Random();
-//        int cpick = 0;//cardpick
 
-//        System.out.printf("%s  %s please put one card down 1st card=0, 2nd card=1..... that doe not make the palysum exceed 31", cpu.getStatus(), this.ruHuman());
-//        System.out.printf("Available cards:%s \n\n", cpucards);
-//          System.out.printf("The playsum is %d\n", playList.getPlaySum());
-//        cpick = rnd.nextInt(cpucards.size());
-//        while (cpick >= cpucards.size()) {//ERROR HANDLING
-//            System.out.println("ERROR! INSERT AGAIN\n");
-//            System.out.printf("%s \n\n", cpucards);
-//            cpick = rnd.nextInt(cpucards.size());
-//        }
         playList.go(cpucards);
+        System.out.println(playList);
 
     }
 
