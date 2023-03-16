@@ -13,10 +13,11 @@ import java.util.ArrayList;
  */
 public class Crib {
     private ArrayList<Card> crib=new ArrayList();
+    private guiGameFrame gui;
 
     
-    public Crib(Player human, Player cpu) {//method called by dealer to create crib(2 from pone in parmater and 2 from dealerattributes)
-
+    public Crib(Player human, Player cpu,guiGameFrame gui ) {//method called by dealer to create crib(2 from pone in parmater and 2 from dealerattributes)
+        this. gui= gui;
         ArrayList<Card> pick1 = human.getcribPick();
         ArrayList<Card> pick2 = cpu.getcribPick();
         for (Card y : pick1) {
@@ -30,11 +31,17 @@ public class Crib {
     }
     
     public void assignCrib(Player human, Player cpu){
+        ArrayList<Card> copy= new ArrayList();
+          for (Card x : this.crib) {
+            copy.add(x);
+        }
         if(human.ruDealer()){
             human.setCrib(this.crib);
+            gui.guisetPbuttonscrib(copy);
         }
         if(cpu.ruDealer()){
             cpu.setCrib(this.crib);
+            gui.guisetCpubuttonscrib(copy);
         }
     }
     

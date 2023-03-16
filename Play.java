@@ -262,21 +262,26 @@ public class Play {
                 System.out.printf("The %s card can be added by cpu %n", cards.get(i));
                 // this.x = x.switchPlayer(cpu);// switch player because the cpu put a card down after the humans turn
             }
-            if ((this.playSum + cards.get(i).getRank().count() > 31) && cardadd == true) {// if the paysum goes over 31 and a card has been added
+        }
+            if ( cardadd == true) {// if the remaining cards cannot be added to be <31 and at least one card has been added.
+                System.out.println(cpu.getStatus() + " says  GO!!");
                 this.setGo(true);
                 this.resetpicklist();
                 this.resetplaySum();
-            }else {// if  playsum is over 31 without a card being added.
+                
+            }else if(cardadd==false) {// if the remaining cards cannot be added to be <31 and no cards have been added.
             System.out.println(cpu.getStatus() + " says  GO!!");
             this.resetpicklist();
             this.resetplaySum();
         
         } 
-        }
-         }
-         
+        
+         }else if(cards.isEmpty()){
          //if all the cards have been added to the Playlist...
             System.out.println(cpu.getStatus() + " says  GO!!");
+            this.resetpicklist();
+            this.resetplaySum();
+         }
     }
 
     public static int total31(ArrayList<Card> hCard, ArrayList<Card> cCard, int playSum) {//the ArrayList used here is either hcards or cpucards

@@ -13,8 +13,8 @@ import java.util.Random;
 public class Deck {
 Random rand= new Random();
     private ArrayList<Card> deck = new ArrayList();
-
-    public Deck() {
+private guiGameFrame gui;
+    public Deck(guiGameFrame gui) {
         ArrayList<Card> fill = new ArrayList();
         Rank[] rank = Rank.values();
         Suit[] suit = Suit.values();
@@ -24,6 +24,7 @@ Random rand= new Random();
             }
     }
         this.deck = fill;
+        this.gui=  gui;
     }
     
     public void shuffle(){
@@ -56,14 +57,17 @@ Random rand= new Random();
           humancard.add(this.deck.get(i));
     }
         human.setCards(humancard);
+        gui.guisetPbuttons(humancard);//
         
          for(int j= 6;j<12;j++){
            cpucard.add(this.deck.get(j));
     } 
          CPU.setCards(cpucard);
+          gui.guisetCpuButtons(cpucard);//
     }
       public Card getStartCard(){
           return this.deck.get(13);
+          
       }   
     @Override
     public String toString(){
@@ -71,11 +75,7 @@ Random rand= new Random();
     }
 
     public static void main(String[] args) {
-Deck a= new Deck();
-a.shuffle();
-        System.out.println(a);
-        a.organizeDeck();
-        System.out.println(a);
+
     }
 
 

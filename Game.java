@@ -26,9 +26,12 @@ public class Game {
     //check the show combinations for correctness
 
     public static void main(String[] args) {
+       
         Human a = new Human();
         Cpu b = new Cpu();
-        Deck deck = new Deck();
+          guiGameFrame frame= new guiGameFrame(a.getCards(),b.getCards());
+        Referee x= new Referee(a,b);
+        Deck deck = new Deck(frame);
         System.out.println(a);
         System.out.println(b);
         // problem with human error handling
@@ -36,7 +39,9 @@ public class Game {
         deck.dealCards(a, b);
         System.out.println(a);
         System.out.println(b);
-
+     
+      frame.getGameBoard().humancolor(20);
+     
         Preparation.pickDealer(a, b);
         System.out.println(a);
         System.out.println(b);
@@ -44,12 +49,12 @@ public class Game {
         a.setCribPick(Preparation.provCrib(a));
         b.setCribPick(Preparation.provCrib(b));
 
-        Crib crib = new Crib(a, b);
+        Crib crib = new Crib(a, b,frame);
         crib.assignCrib(a, b);
 
         System.out.println(a);
         System.out.println(b);
-        
+        // play methods for last card to be 31 or close to 31
         Play playList2 = new Play(a, b, a.getCards(), b.getCards(), deck.getStartCard());
         playList2.play();
 
@@ -61,7 +66,7 @@ public class Game {
         b.playerreset(b.getPPC()+b.getSPC());
         System.out.println(a);
         System.out.println(b);
-
+//DEBUGGIN USE THE SAME SEED TO CHECK FOR ERRORS.
         // switch when both player say go, swith back to first 
         // check thog and 
         // shffle, deal, make the crib, cut deck of non dealer
