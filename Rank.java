@@ -14,4 +14,8 @@ public enum Rank {
         return Math.min(ordinal() + 1, 10);
     }
 
+    public boolean equals(Rank x) {
+        return (this == x);
+    }
+
 }

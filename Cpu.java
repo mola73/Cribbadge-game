@@ -42,38 +42,44 @@ public class Cpu extends Player {
     }
 
     public ArrayList<Card> play(Cpu cpu, Human human, Play play, ArrayList<Card> cpucards, ArrayList<Card> hcards) {// FIX THIS FIRST CHECK IF THE PLAYER IS A CPU!!! WITH AN IF STATEMENT
-               System.out.println("--------------------------------------------------------------------------------------------------------------------------");
-                if(!cpucards.isEmpty()){//if all the cpu's cards are not used
-        Random rnd = new Random();
-
-        System.out.printf("%s  %s please put one card down 1st card=0, 2nd card=1.....\n", cpu.getStatus(), cpu.ruHuman());
-        System.out.printf("Available cards:%s %n", cpucards);
-        System.out.printf("The playsum is %d\n", play.getPlaySum());
-
-        int cpick = rnd.nextInt(cpucards.size());
-        System.out.println(cpick);
-
-        while (cpick > cpucards.size()) {//ERROR HANDLING
-            System.out.println("ERROR! INSERT AGAIN\n");
-              System.out.printf("The playsum is %d\n", play.getPlaySum());
-            System.out.printf("%s \n\n", cpu.getCards());
-            cpick = rnd.nextInt(cpucards.size());
-        }
-        if (play.go(cpucards, cpick)) {//VERIFIES IF THE CARD BEING PUT DOWN DOES NOT SURPASS 31, AND IF IT DOES, IT CALLS GO and switches turn to human to chec the same.
-            System.out.println(cpu.getStatus() + " Says: GO!");
-            human.playGo(human, cpu, play, hcards);
+        System.out.println("NEXT TURN--------------------------------------------------------------------------------------------------------------------------");
+         if(cpucards.isEmpty()){
+              System.out.printf("Available cards:%s %n", cpucards);
+              System.out.printf("No more cards \n\n");
             return cpucards;
-        }
-        play.setPlay(cpucards.get(cpick));// adds chose card to play arraylist
-        play.setPlaySum(cpucards.get(cpick).getRank().count());
-        play.changeRemC(cpick, cpucards);
-        return cpucards;
-    }
+         }
+        if (!cpucards.isEmpty()) {//if all the cpu's cards are not used
+            Random rnd = new Random(1234);
+
+            System.out.printf("%s  %s please put one card down 1st card=0, 2nd card=1.....\n", cpu.getStatus(), cpu.ruHuman());
+            System.out.printf("Available cards:%s %n", cpucards);
+            System.out.printf("The playsum is %d\n", play.getPlaySum());
+
+            int cpick = rnd.nextInt(cpucards.size());
+            System.out.println(cpick);
+
+            while (cpick<0&&!cpucards.isEmpty()) {//ERROR HANDLING
+                System.out.println("ERROR! INSERT AGAIN\n");
+                System.out.printf("The playsum is %d\n", play.getPlaySum());
+                System.out.printf("%s \n\n", cpucards);
+                cpick = rnd.nextInt(cpucards.size());
+            }
+            if (play.go(cpucards, cpick)) {//VERIFIES IF THE CARD BEING PUT DOWN DOES NOT SURPASS 31, AND IF IT DOES, IT CALLS GO and switches turn to human to chec the same.
+                System.out.println(cpu.getStatus() + " Says: GO!");
+                human.playGo(human, cpu, play, hcards);
                 return cpucards;
+            }
+            play.setPlay(cpucards.get(cpick));// adds chose card to play arraylist
+            play.setPlaySum(cpucards.get(cpick).getRank().count());
+             return play.changeRemC(cpick, cpucards);
+           
+        }
+       
+        return cpucards;
     }
 
     public void playGo(Player cpu, Player human, Play playList, ArrayList<Card> cpucards) {
-
+ System.out.println("---THIS IS FOR A GO CPU----");
         playList.go(cpucards);
         System.out.println(playList);
 

@@ -10,7 +10,6 @@ import java.util.Collections;
  *
  * @author muham
  */
-
 public class Show {// everything works but the run method
 
     //Pone show mthod,counts all points, then assigns to the player the ponts
@@ -37,9 +36,10 @@ public class Show {// everything works but the run method
     }
 
     public int check(ArrayList<Card> cards) {
-        
-        System.out.println("-----------------");
-        return pair(cards) + threepair(cards) + fourpair(cards) + pairfifteen(cards) + threefifteen(cards) + fourfifteen(cards)+ run(cards)  + fourflush(cards) + fiveflush(cards) + oneForHisNob(cards);
+
+        System.out.println("-------------------The Show-----------------");
+        System.out.println("card list" + cards);
+        return pair(cards) + threepair(cards) + fourpair(cards) + pairfifteen(cards) + threefifteen(cards) + fourfifteen(cards) + run(cards) + fourflush(cards) + fiveflush(cards) + oneForHisNob(cards);
     }
 
     public void show() {
@@ -57,7 +57,7 @@ public class Show {// everything works but the run method
 
     }
 
-    public int dealershow() {// the cards are not being copied properly sot he play is stopping i think
+    public int dealershow() {
         ArrayList<Card> dealercards = new ArrayList();
         ArrayList<Card> dealercrib = new ArrayList();
         for (Card x : this.dealer.getCards()) {
@@ -74,72 +74,84 @@ public class Show {// everything works but the run method
     }
 
     public int pair(ArrayList<Card> cards) {
+        int j = 0;
         int pairsum = 0;
-        for (int i = 0; i < cards.size(); i++) {
-            for (int j = 1; j < cards.size(); j++) {
-                if (i != j && cards.get(i).getRank() == cards.get(j).getRank()) {
+        for (int i = 0; i < 4; i++) {
+            j++;
+            for (; j < cards.size(); j++) {
+                if (cards.get(i).getRank().equals(cards.get(j).getRank())) {
                     pairsum = pairsum + 2;
-                    System.out.println(cards.get(i).getRank()+ "  "+ cards.get(j).getRank());
+                    System.out.println("pair" + cards.get(i).getRank() + "  " + cards.get(j).getRank());
+
                 }
 
             }
+
         }
         return pairsum;
     }
 
     public int threepair(ArrayList<Card> cards) {
         int pairsum = 0;
-        for (int i = 0; i < cards.size(); i++) {
-            for (int j = 1; j < cards.size(); j++) {
-                for (int e = 2; e < cards.size(); e++) {
 
-                    if ((i != j) && (j != e) && (cards.get(i).getRank() == cards.get(j).getRank()) && (cards.get(j).getRank() == cards.get(e).getRank())) {
-                        pairsum = pairsum + 6;
-                         System.out.println(cards.get(i).getRank()+ "  "+ cards.get(j).getRank()+" "+ cards.get(i).getRank());
-                    }
-                }
-
-            }
+        ArrayList<Integer> cardnums = new ArrayList();
+        for (Card x : cards) {
+            cardnums.add(x.getRank().count()); //putthe count of the cards in an arraylist
         }
+
+        Collections.sort(cardnums);
+        if (cardnums.get(0).equals(cardnums.get(1)) && cardnums.get(1).equals(cardnums.get(2)) && cardnums.get(2).equals(cardnums.get(3))) {
+            pairsum += 6;
+            System.out.printf("three pair %s  %s %s ", cardnums.get(0), cardnums.get(1), cardnums.get(2));
+
+        }
+        if (cardnums.get(1).equals(cardnums.get(2)) && cardnums.get(2).equals(cardnums.get(3)) && cardnums.get(3).equals(cardnums.get(4))) {
+            pairsum += 6;
+            System.out.printf("three pair %s  %s %s ", cardnums.get(1), cardnums.get(2), cardnums.get(3));
+
+        }
+
         return pairsum;
     }
 
     public int fourpair(ArrayList<Card> cards) {
         int pairsum = 0;
 
-        for (int i = 0; i < cards.size(); i++) {
-            for (int j = 0; j < cards.size(); j++) {
-                if (i != j) {
-                    if (cards.get(i).getSuit() == cards.get(j).getSuit()) {
-                        pairsum++;
-                    }
-                    if (pairsum == 4) {
-                        System.out.println(cards.get(i).getRank()+ "  "+ cards.get(j).getRank());
-                        return 4;
-                        
-
-                    }
-                }
-            }
-            pairsum = 0; //reset the counter if there are not 4 same suites. 
+        ArrayList<Integer> cardnums = new ArrayList();
+        for (Card x : cards) {
+            cardnums.add(x.getRank().count()); //putthe count of the cards in an arraylist
         }
-        return 0;
+
+        Collections.sort(cardnums);
+        if (cardnums.get(0).equals(cardnums.get(1)) && cardnums.get(1).equals(cardnums.get(2)) && cardnums.get(2).equals(cardnums.get(3))) {
+            pairsum += 6;
+            System.out.printf("four pair %s  %s %s ", cardnums.get(0), cardnums.get(1), cardnums.get(2), cardnums.get(3));
+        }
+        if (cardnums.get(1).equals(cardnums.get(2)) && cardnums.get(2).equals(cardnums.get(3)) && cardnums.get(3).equals(cardnums.get(4))) {
+            pairsum += 6;
+            System.out.printf("four pair %s  %s %s ", cardnums.get(1), cardnums.get(2), cardnums.get(3), cardnums.get(4));
+        }
+
+        return pairsum;
 
     }
 
     public int pairfifteen(ArrayList<Card> cards) {
         int fifteensum = 0;
         int j = 1;
-        for (int i = 0; i < cards.size() - 1; i++) {
+        int x;
+        for (int i = 0; i < 4; i++) {
+
             for (; j < cards.size(); j++) {
-                if (cards.get(i).getRank().count() + cards.get(cards.size() - j).getRank().count() == 15);
-                fifteensum = fifteensum + 2;
-                System.out.println(cards.get(i).getRank().count() +" " +cards.get(cards.size() - j).getRank().count());
+                if (cards.get(i).getRank().count() + cards.get(j).getRank().count() == 15) {
+                    fifteensum = fifteensum + 2;
+                    System.out.println("pair fifteen " + cards.get(i).getRank().count() + " " + cards.get(j).getRank().count());
+                }
             }
             j++;
 
         }
-        return fifteensum / 2;
+        return fifteensum;
     }
 
     public int run(ArrayList<Card> cards) {//this has a problem
@@ -149,42 +161,36 @@ public class Show {// everything works but the run method
             cardnums.add(x.getRank().count()); //putthe count of the cards in an arraylist
         }
         Collections.sort(cardnums);
-        for (int i = 0; i < 3; i++) {
-            for (int j = i + 1; j < cardnums.size(); j++) {
-                if (cardnums.get(i) == cardnums.get(j) - j) {//if 2 numbers are cnsecutive count it.
-                    runcount++;
-                }
-                if (runcount >= 3) { //if 3 or more cards are consecutive return that
-                    System.out.println(cardnums.get(i)+" "+ cardnums.get(j));
-                    return runcount;
-                }
+        for (int i = 0; i < 4; i++) {
+            if (cardnums.get(i) == cardnums.get(i + 1) - 1) {//if 2 numbers are cnsecutive count it.
+                runcount++;
             }
+            if (runcount >= 3) { //if 3 or more cards are consecutive return that
+                System.out.println("run of" + runcount + " cards");
+                return runcount;
+            }
+
         }
         return 0;
     }
 
-    public int fourflush(ArrayList<Card> cards) {
-        int suitcount = 0;
-        for (int i = 0; i < cards.size(); i++) {
-            for (int j = 0; j < cards.size(); j++) {
-                if (i != j) {
-                    if (cards.get(i).getSuit() == cards.get(j).getSuit()) {
-                        suitcount++;
-                    }
-                    if (suitcount == 4) {
-                        return 4;
-
-                    }
-                }
-            }
-            suitcount = 0; //reset the counter if there are not 4 same suites. 
+    public int fourflush(ArrayList<Card> cardnums) {
+        int fourcount = 0;
+        if (cardnums.get(0).equals(cardnums.get(1)) && cardnums.get(1).equals(cardnums.get(2)) && cardnums.get(2).equals(cardnums.get(3))) {
+            fourcount += 4;
+            System.out.printf("four pair %s  %s %s ", cardnums.get(0), cardnums.get(1), cardnums.get(2), cardnums.get(3));
         }
-        return 0;
+        if (cardnums.get(1).equals(cardnums.get(2)) && cardnums.get(2).equals(cardnums.get(3)) && cardnums.get(3).equals(cardnums.get(4))) {
+
+            System.out.printf("four pair %s  %s %s ", cardnums.get(1), cardnums.get(2), cardnums.get(3), cardnums.get(4));
+            fourcount += 4;
+        }
+        return fourcount;
     }
 
     public int fiveflush(ArrayList<Card> cards) {
         if ((cards.get(0).getSuit() == cards.get(1).getSuit()) && (cards.get(1).getSuit() == cards.get(2).getSuit()) && (cards.get(2).getSuit() == cards.get(3).getSuit()) && (cards.get(3).getSuit() == cards.get(4).getSuit())) {
-
+            System.out.println("fiveflush");
             return 5;
         }
         return 0;
@@ -192,11 +198,11 @@ public class Show {// everything works but the run method
 
     public int oneForHisNob(ArrayList<Card> cards) {
         for (Card x : cards) {
-            if(!this.starterCard.equals(x)){// becasue the card has been addd to the ArrayList so to bypass the copy already in the arraylist
-            if (x.getSuit() == this.starterCard.getSuit()) {
-                System.out.println(x+ "  one for his nob");
-                return 2;
-            }
+            if (!this.starterCard.equals(x)) {// becasue the card has been addd to the ArrayList so to bypass the copy already in the arraylist
+                if (x.getSuit() == this.starterCard.getSuit()) {
+                    System.out.println(x + "  one for his nob");
+                    return 2;
+                }
             }
         }
         return 0;
@@ -206,24 +212,52 @@ public class Show {// everything works but the run method
         int fifteensum = 0;
         if (cards.get(0).getRank().count() + cards.get(1).getRank().count() + cards.get(2).getRank().count() == 15) {
             fifteensum = fifteensum + 2;
+            System.out.printf("  three fifteen %d %d %d%n", cards.get(0).getRank().count(), cards.get(1).getRank().count(), cards.get(2).getRank().count());
         }
         if (cards.get(0).getRank().count() + cards.get(1).getRank().count() + cards.get(3).getRank().count() == 15) {
             fifteensum = fifteensum + 2;
+            System.out.printf("  three fifteen %d %d %d%n", cards.get(0).getRank().count(), cards.get(1).getRank().count(), cards.get(3).getRank().count());
+        }
+
+        if (cards.get(0).getRank().count() + cards.get(1).getRank().count() + cards.get(4).getRank().count() == 15) {
+            fifteensum = fifteensum + 2;
+            System.out.printf("  three fifteen %d %d %d%n", cards.get(0).getRank().count(), cards.get(1).getRank().count(), cards.get(4).getRank().count());
         }
         if (cards.get(0).getRank().count() + cards.get(2).getRank().count() + cards.get(3).getRank().count() == 15) {
             fifteensum = fifteensum + 2;
+            System.out.printf("  three fifteen %d %d %d%n", cards.get(0).getRank().count(), cards.get(2).getRank().count(), cards.get(3).getRank().count());
+        }
+        if (cards.get(0).getRank().count() + cards.get(2).getRank().count() + cards.get(4).getRank().count() == 15) {
+            fifteensum = fifteensum + 2;
+            System.out.printf("  three fifteen %d %d %d%n", cards.get(0).getRank().count(), cards.get(2).getRank().count(), cards.get(4).getRank().count());
+        }
+        if (cards.get(0).getRank().count() + cards.get(3).getRank().count() + cards.get(4).getRank().count() == 15) {
+            fifteensum = fifteensum + 2;
+            System.out.printf("  three fifteen %d %d %d%n", cards.get(0).getRank().count(), cards.get(3).getRank().count(), cards.get(4).getRank().count());
         }
         if (cards.get(1).getRank().count() + cards.get(2).getRank().count() + cards.get(3).getRank().count() == 15) {
             fifteensum = fifteensum + 2;
+            System.out.printf("  three fifteen %d %d %d%n", cards.get(1).getRank().count(), cards.get(2).getRank().count(), cards.get(3).getRank().count());
+        }
+        if (cards.get(1).getRank().count() + cards.get(2).getRank().count() + cards.get(4).getRank().count() == 15) {
+            fifteensum = fifteensum + 2;
+            System.out.printf("  three fifteen %d %d %d%n", cards.get(1).getRank().count(), cards.get(2).getRank().count(), cards.get(4).getRank().count());
         }
 
-        return fifteensum / 2;
+        return fifteensum;
     }
 
     public int fourfifteen(ArrayList<Card> cards) {//change this
         int fifteensum = 0;
         if (cards.get(0).getRank().count() + cards.get(1).getRank().count() + cards.get(2).getRank().count() + cards.get(3).getRank().count() == 15) {
             fifteensum = fifteensum + 2;
+            System.out.printf("four fifteen %d %d %d %d", cards.get(0).getRank().count(), cards.get(1).getRank().count(), cards.get(2).getRank().count(), cards.get(3).getRank().count());
+        }
+        if (cards.get(1).getRank().count() + cards.get(2).getRank().count() + cards.get(3).getRank().count() + cards.get(4).getRank().count() == 15) {
+            fifteensum = fifteensum + 2;
+            System.out.printf("four fifteen %d %d %d %d", cards.get(1).getRank().count(), cards.get(2).getRank().count(), cards.get(3).getRank().count(), cards.get(4).getRank().count());
+            fifteensum = fifteensum + 2;
+
         }
         return fifteensum;
     }
