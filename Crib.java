@@ -34,13 +34,19 @@ public class Crib {
         for (Card x : this.crib) {
             copy.add(x);
         }
-        if (human.ruDealer()) {
+        if (human.ruDealer()==true) { 
             human.setCrib(this.crib);
-            gui.guisetPbuttonscrib(copy);
+//            gui.setCPUCribVisibility(false);
+//            gui.setPCribvisibility(true);
+            gui.guisetPbuttonscrib(copy, human.ruDealer());
         }
-        if (cpu.ruDealer()) {
-            cpu.setCrib(this.crib);
-            gui.guisetCpubuttonscrib(copy);
+        if (cpu.ruDealer()==true) {
+             cpu.setCrib(this.crib);
+//            gui.setPCribvisibility(true);
+//             gui.setCPUCribVisibility(false);
+//           
+           
+            gui.guisetCpubuttonscrib(copy, cpu.ruDealer());
         }
     }
 

@@ -12,10 +12,7 @@ import java.util.Collections;
  */
 public class Show {// everything works but the run method
 
-    //Pone show mthod,counts all points, then assigns to the player the ponts
-    //same thing for dealer but with crib
-    //main play method that takes two p;ayers find the dealer and pone and applie their speciic methods
-// the show has 5 cards each because of the start card
+    
     private Player dealer;
     private Player pone;
     private int dealerpoints;

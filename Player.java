@@ -186,6 +186,9 @@ public class Player {
     public void playerreset() {//add peg movement, remake crib at the beggining of the round seperately.RESETS A PLAYER!!!!
         this.setScore(this.getPPC());// add peg and show points to score.
         this.setScore(this.getSPC());
+//        if(this.getScore()>121){
+//            this.setScore(121);
+//        }
         this.playpegcount = 0;
         this.showpegcount = 0;
         this.flipDealer();

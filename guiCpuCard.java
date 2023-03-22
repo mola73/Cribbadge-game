@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 public class guiCpuCard extends JComponent {// make a comp of 4 buttons for each player
 
     private ArrayList<Card> cpucards = new ArrayList();
+    boolean facedup;
     JButton card1;
     JButton card2;
     JButton card3;
@@ -27,6 +28,7 @@ public class guiCpuCard extends JComponent {// make a comp of 4 buttons for each
 
     public guiCpuCard() {
         cards = new JPanel(new GridLayout(3, 2));
+        facedup=false;
 //        for(Card x: realcards){
 //            cpucards.add(x);
 //        }
@@ -45,7 +47,28 @@ public class guiCpuCard extends JComponent {// make a comp of 4 buttons for each
     }
 
     public void setButtons(ArrayList<Card> cpucards) {
-        cards.removeAll();
+       
+        if (this.getFacedup()==false){
+            card1.setText("Facedown");
+        card2.setText("Facedown");
+        card3.setText("Facedown");
+        card4.setText("Facedown"); 
+        card5.setText("Facedown");
+        card6.setText("Facedown");
+//             card1 = new JButton("Facedown");
+//        cards.add(card1);
+//        card2 = new JButton("Facedown");
+//        cards.add(card2);
+//        card3 = new JButton("Facedown");
+//        cards.add(card3);
+//        card4 = new JButton("Facedown");
+//        cards.add(card4);
+//        card5 = new JButton("Facedown");
+//        cards.add(card5);
+//        card6 = new JButton("Facedown");
+//        cards.add(card6);
+        repaint();
+        }else{
         card1 = new JButton(cpucards.get(0).toString());
         cards.add(card1);
         card2 = new JButton(cpucards.get(1).toString());
@@ -58,7 +81,12 @@ public class guiCpuCard extends JComponent {// make a comp of 4 buttons for each
         cards.add(card5);
         card6 = new JButton(cpucards.get(5).toString());
         cards.add(card6);
+        repaint();
+        }
 
+    }
+    public boolean getFacedup(){
+        return this.facedup;
     }
 
     public JPanel getbuttons() {

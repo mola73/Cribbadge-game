@@ -57,19 +57,26 @@ public class guiPersonCard extends JComponent {
     }
 
     public void setButtons(ArrayList<Card> hcards) {
-        cards.removeAll();
-        card1 = new JButton(hcards.get(0).toString());
-        cards.add(card1);
-        card2 = new JButton(hcards.get(1).toString());
-        cards.add(card2);
-        card3 = new JButton(hcards.get(2).toString());
-        cards.add(card3);
-        card4 = new JButton(hcards.get(3).toString());
-        cards.add(card4);
-        card5 = new JButton(hcards.get(4).toString());
-        cards.add(card5);
-        card6 = new JButton(hcards.get(5).toString());
-        cards.add(card6);
+        //cards.removeAll();
+        card1.setText(hcards.get(0).toString());
+        card2.setText(hcards.get(1).toString());
+        card3.setText(hcards.get(2).toString());
+        card4.setText(hcards.get(3).toString()); 
+        card5.setText(hcards.get(4).toString());
+        card6.setText(hcards.get(5).toString());
+//        card1 = new JButton(hcards.get(0).toString());
+//        cards.add(card1);
+//        card2 = new JButton(hcards.get(1).toString());
+//        cards.add(card2);
+//        card3 = new JButton(hcards.get(2).toString());
+//        cards.add(card3);
+//        card4 = new JButton(hcards.get(3).toString());
+//        cards.add(card4);
+//        card5 = new JButton(hcards.get(4).toString());
+//        cards.add(card5);
+//        card6 = new JButton(hcards.get(5).toString());
+//        cards.add(card6);
+        repaint();
 
     }
 }

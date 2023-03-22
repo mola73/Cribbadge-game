@@ -64,6 +64,7 @@ public class Deck {
         }
         human.setCards(humancard);
         gui.guisetPbuttons(humancard);//
+        
 
         for (int j = 6; j < 12; j++) {
             cpucard.add(this.deck.get(j));

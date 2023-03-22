@@ -5,6 +5,7 @@
 
 import cribbadgegui.*;
 import java.awt.BorderLayout;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -53,23 +54,39 @@ public class guiGameFrame extends JFrame {// make fram, panell, add components
     }
 
     public void guisetPbuttons(ArrayList<Card> hcards) {
+     //   hpanel.remove(hc.getbuttons());
         this.hc.setButtons(hcards);
+      //  hpanel.add(hc.getbuttons());
+      //  hpanel.add(hc.getbuttons());
         repaint();
 
     }
 
-    public void guisetPbuttonscrib(ArrayList<Card> hcards) {
-        this.hcrib.setButtons(hcards);
+    public void guisetPbuttonscrib(ArrayList<Card> hcards,boolean rudealer) {
+        this.hcrib.setButtons(hcards,rudealer);
+        this.cpucrib.getbuttons().setVisible(!rudealer);
         repaint();
     }
 
-    public void guisetCpubuttonscrib(ArrayList<Card> cpucards) {
-        this.cpucrib.setButtons(cpucards);
+    public void guisetCpubuttonscrib(ArrayList<Card> cpucards,boolean rudealer) {
+        this.cpucrib.setButtons(cpucards,rudealer);
+        this.hcrib.getbuttons().setVisible(!rudealer);
         repaint();
     }
 
     public void guisetCpuButtons(ArrayList<Card> cpucards) {
         this.cpuc.setButtons(cpucards);
+        repaint();
+    }
+    public void setPCribvisibility(boolean x){
+        this.hcrib.getbuttons().setVisible(x);
+     System.out.println("pc crib bool");
+        repaint();
+    }
+    public void setCPUCribVisibility(boolean x){
+        this.cpucrib.getbuttons().setVisible(x);
+         System.out.println("cpu crib bool");
+        
         repaint();
     }
 

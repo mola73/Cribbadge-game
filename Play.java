@@ -266,8 +266,8 @@ public class Play {
                     System.out.println(this);
                    this.PlayList.add(cards.get(i));
                     System.out.println(this);//check this
+                     System.out.printf("The %s card can be added by cpu %n", cards.get(i));
                     this.cpucardturn.remove(cards.get(i)); 
-                    System.out.printf("The %s card can be added by cpu %n", cards.get(i));
                     // this.x = x.switchPlayer(cpu);// switch player because the cpu put a card down after the humans turn
                 }
             }

@@ -57,7 +57,7 @@ public class Human extends Player {
             cpick = sc.nextInt() - 1;
            
             
-            while ( cpick < 0&& !hcards.isEmpty()) {//Error handling
+            while ( cpick < 0&& !hcards.isEmpty()||cpick>=hcards.size()&&!hcards.isEmpty()) {//Error handling
                 System.out.println("ERROR! INSERT AGAIN\n");
                 System.out.printf("The playsum is %d\n", playList.getPlaySum());
                 System.out.printf("%s  %s please put one card down 1st card=1, 2nd card=2.....\n", human.getStatus(), this.ruHuman());

@@ -32,6 +32,10 @@ int count=0;
         guiGameFrame frame = new guiGameFrame(a.getCards(), b.getCards());
         Referee x = new Referee(a, b);
         Deck deck = new Deck(frame);
+        
+        Preparation.pickDealer(a, b);
+        System.out.println(a);
+        System.out.println(b);
 while(a.getScore()<121&&b.getScore()<121){
     if (count>0){
         System.out.println("----------------------NEXT ROUND-----------------------");
@@ -41,12 +45,6 @@ while(a.getScore()<121&&b.getScore()<121){
         // problem with human error handling
         deck.shuffle();
         deck.dealCards(a, b);
-        System.out.println(a);
-        System.out.println(b);
-
-        frame.getGameBoard().humancolor(20);
-
-        Preparation.pickDealer(a, b);
         System.out.println(a);
         System.out.println(b);
 
@@ -69,10 +67,19 @@ while(a.getScore()<121&&b.getScore()<121){
 
         Show one = new Show(a, b, deck.getStartCard());
         one.show();
+       
         System.out.println(a);
         System.out.println(b);
         a.playerreset();
         b.playerreset();
+        if(a.getScore()<122 && b.getScore()<122){
+          frame.getGameBoard().humancolor(a.getScore());
+          frame.getGameBoard().cpucolor(b.getScore());
+        }else{
+          
+            x.anouncement();
+            x.endGame();
+        }
         count++;
 }
 x.anouncement();

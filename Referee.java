@@ -10,13 +10,13 @@ import static javafx.application.Platform.exit;
  * @author muham
  */
 public class Referee {
-    
+
     private boolean winner;
-    private Player pone;
+    private Player pone;// pone always switches
     private Player dealer;
     private Human human;
     private Cpu cpu;
-    
+
     public Referee(Human human, Cpu cpu) {
         this.winner = false;
         this.human = human;
@@ -31,9 +31,9 @@ public class Referee {
         } else {
             this.pone = cpu;
         }
-        
+
     }
-    
+
     public void restartGame() {
         System.out.println("RESTART GAME!!!!!!!");
         this.human.playerreset();
@@ -41,26 +41,48 @@ public class Referee {
         this.cpu.setScore(0);
         this.human.setScore(0);
     }
-    
+
     public void endGame() {
         System.out.println("END GAME!!!!!!!");
         exit();
     }
-    
-    public void anouncement() {
-        if (pone.getScore() >= 121) {
-            System.out.printf("THE %S HAS WON THE GAME!!!!!!!!", pone.getStatus());
-            System.out.printf("%s  %n %n %s", this.pone, this.dealer);
-            this.endGame();
-        } else if (dealer.getScore() >= 121) {
-            System.out.printf("THE %S HAS WON THE GAME!!!!!!!!", dealer.getStatus());
-             System.out.printf("%s  %n %n %s",  this.dealer, this.pone);
-            this.endGame();
-            this.endGame();
+public void poneWinner(){
+     if (human.ruDealer() == true) {
+            if (human.getScore() >= 121) {
+                System.out.printf("THE %S HAS WON THE GAME!!!!!!!!", human.getStatus());
+                System.out.printf("%s  %n %n %s", this.human, this.cpu);
+                this.endGame();
+            }
+        } else if (cpu.ruDealer() == true) {
+            if (cpu.getScore() >= 121) {
+                System.out.printf("THE %S HAS WON THE GAME!!!!!!!!", cpu.getStatus());
+                System.out.printf("%s  %n %n %s", this.cpu, this.dealer);
+                this.endGame();
+            }
         }
+}
+     public void dealerWinner(){
+          if (human.ruDealer() == false) {
+            if (human.getScore() >= 121) {
+                System.out.printf("THE %S HAS WON THE GAME!!!!!!!!", human.getStatus());
+                System.out.printf("%s  %n %n %s", this.human, this.cpu);
+                this.endGame();
+            }
+        } else if (cpu.ruDealer() == false) {
+            if (cpu.getScore() >= 121) {
+                System.out.printf("THE %S HAS WON THE GAME!!!!!!!! %n", cpu.getStatus());
+                System.out.printf("%s  %n %n %s%n", this.cpu, this.human);
+                this.endGame();
+            }
+        }
+     }
+
+    public void anouncement() {
+        this.poneWinner();
+        this.dealerWinner();
     }
-    
+
     public void displayBoard() {
-        
+
     }
 }

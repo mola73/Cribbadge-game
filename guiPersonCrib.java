@@ -47,20 +47,36 @@ public class guiPersonCrib extends JComponent { //make a comp with 4 buttons for
         cards.add(card4);
 
     }
+    public boolean getVisible(){
+        return this.visible;
+    }
 
-    public void setButtons(ArrayList<Card> hcards) {
-        cards.removeAll();
-        card1 = new JButton(hcards.get(0).toString());
-        cards.add(card1);
-        card2 = new JButton(hcards.get(1).toString());
-        cards.add(card2);
-        card3 = new JButton(hcards.get(2).toString());
-        cards.add(card3);
-        card4 = new JButton(hcards.get(3).toString());
-        cards.add(card4);
+    public void setButtons(ArrayList<Card> hcards,boolean rudealer) {
+     //   cards.removeAll();
+     
+     this.cards.setVisible(this.getVisible());
+     card1.setText(hcards.get(0).toString());
+     card2.setText(hcards.get(1).toString());
+     card3.setText(hcards.get(2).toString());
+     card4.setText(hcards.get(3).toString());
+    
+         this.getbuttons().setVisible(rudealer);
+//        card1 = new JButton(hcards.get(0).toString());
+//        cards.add(card1);
+//        card2 = new JButton(hcards.get(1).toString());
+//        cards.add(card2);
+//        card3 = new JButton(hcards.get(2).toString());
+//        cards.add(card3);
+//        card4 = new JButton(hcards.get(3).toString());
+//        cards.add(card4);
         repaint();
 
     }
+    
+    @Override
+      public void setVisible(boolean x){
+    this.visible= x;
+}
 
     public JPanel getbuttons() {
         return this.cards;

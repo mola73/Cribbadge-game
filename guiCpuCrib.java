@@ -31,7 +31,7 @@ public class guiCpuCrib {
               
      */
     public guiCpuCrib() {
-        boolean visible = true;
+        boolean visible = false;
         cards = new JPanel(new GridLayout(3, 2));
         card1 = new JButton(); //realcards.get(0).toString()
         cards.add(card1);
@@ -43,19 +43,25 @@ public class guiCpuCrib {
         cards.add(card4);
 
     }
-
-    public void setButtons(ArrayList<Card> hcards) {
-        cards.removeAll();
-        card1 = new JButton(hcards.get(0).toString());
-        cards.add(card1);
-        card2 = new JButton(hcards.get(1).toString());
-        cards.add(card2);
-        card3 = new JButton(hcards.get(2).toString());
-        cards.add(card3);
-        card4 = new JButton(hcards.get(3).toString());
-        cards.add(card4);
-
+    public boolean getVisible(){
+        return this.visible;
     }
+
+    public void setButtons(ArrayList<Card> hcards,boolean rudealer) {
+       // cards.removeAll();
+     
+  this.setVisiblestate(rudealer);
+      card1.setText("Facedown");
+     card2.setText("Facedown");
+     card3.setText("Facedown");
+     card4.setText("Facedown");
+        this.getbuttons().setVisible(this.getVisible());
+        // this.getbuttons().setVisible(this.getVisible());
+      
+    }
+    public void setVisiblestate(boolean x){
+    this.visible= x;
+}
 
     public JPanel getbuttons() {
         return this.cards;
